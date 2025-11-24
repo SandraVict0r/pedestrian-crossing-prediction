@@ -54,7 +54,7 @@ def load_crossing_avg() -> pd.DataFrame:
     conn, cursor = get_db_connection()
     try:
         cursor.execute(
-            "SELECT participant_id, weather_id, position_id, velocity_id, safety_distance FROM Crossing;"
+            "SELECT participant_id, weather_id, position_id, velocity_id, safety_distance FROM crossing;"
         )
         cols = [c[0] for c in cursor.description]
         rows = cursor.fetchall()

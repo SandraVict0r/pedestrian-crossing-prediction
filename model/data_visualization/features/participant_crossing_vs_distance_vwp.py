@@ -55,7 +55,7 @@ def load_crossing_series() -> Dict[Any, Dict[str, Dict[int, List[Dict[str, Any]]
     conn, cursor = get_db_connection()
     try:
         cursor.execute(
-            "SELECT participant_id, weather_id, position_id, velocity_id, distance_car_ped, crossing_value, crossing_id FROM Crossing;"
+            "SELECT participant_id, weather_id, position_id, velocity_id, distance_car_ped, crossing_value, crossing_id FROM crossing;"
         )
         rows = cursor.fetchall()
         cols = [c[0] for c in cursor.description]

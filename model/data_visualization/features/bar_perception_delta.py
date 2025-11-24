@@ -57,7 +57,7 @@ def load_delta_df() -> pd.DataFrame:
             """
             SELECT participant_id, velocity_id, distance_id, weather_id,
                    perceived_distance - distance_id AS delta
-            FROM Perception;
+            FROM perception;
             """
         )
         cols = [c[0] for c in cursor.description]

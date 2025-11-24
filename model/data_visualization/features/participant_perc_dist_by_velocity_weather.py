@@ -41,7 +41,7 @@ def load_perception_df() -> pd.DataFrame:
 
     conn, cursor = get_db_connection()
     try:
-        cursor.execute("SELECT * FROM Perception;")
+        cursor.execute("SELECT * FROM perception;")
         cols = [c[0] for c in cursor.description]
         rows = cursor.fetchall()
     finally:
