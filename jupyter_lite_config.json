@@ -1,8 +1,17 @@
 {
-  "output_dir": "_output",
-  "contents": ".",
-  "files": [
-    "model/data_analysis_exp1.ipynb",
-    "model/data_analysis_exp2.ipynb"
-  ]
+  "contents": {
+    "/": {
+      "type": "directory",
+      "children": {
+        "data_analysis_exp1.ipynb": {
+          "type": "file",
+          "source": "files/data_analysis_exp1.ipynb"
+        },
+        "data_analysis_exp2.ipynb": {
+          "type": "file",
+          "source": "files/data_analysis_exp2.ipynb"
+        }
+      }
+    }
+  }
 }
