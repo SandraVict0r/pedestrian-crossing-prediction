@@ -29,6 +29,32 @@ database/
 * 🐍 Scripts Python : [`python/README.md`](./python/README.md)
 * 🗄️ Scripts SQL : [`sql/README.md`](./sql/README.md)
 
+
+## 🧩 Modèle conceptuel de données (UML)
+
+La base MySQL utilisée pour structurer les données VR repose sur un modèle relationnel simple, organisé autour des entités suivantes :
+
+* **Participant**
+* **Perception** (Exp1)
+* **Crossing** (Exp2)
+* **DistanceDisappearance** (paramètres exp1)
+* **Velocity** (vitesses + catégories)
+* **Weather** (conditions météo)
+* **Position** (positions relatives dans l’environnement)
+
+Les relations assurent la cohérence entre les données brutes, les paramètres expérimentaux et les observations des participants.
+
+### 📊 **Diagramme UML de la base MySQL**
+
+![UML schema of MySQL database](/data/img/uml_diagram.png)
+
+Ce diagramme montre :
+
+* les **tables** et leurs **attributs principaux**,
+* les relations **1 → *** entre participant ↔ essais,
+* le lien bidirectionnel entre les expériences (Perception, Crossing) et les paramètres expérimentaux (Weather, Velocity, DistanceDisappearance, Position),
+* la structure qui permet d'agréger l’ensemble des données dans la requête finale (`model_datas_request.sql`).
+
 ---
 
 # 🧠 Rôle des sous-dossiers
