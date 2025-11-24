@@ -59,10 +59,10 @@ PAGES = {
 # ---------------------------------------------------------------------
 # Configuration générale de la page Streamlit
 # ---------------------------------------------------------------------
-"""
-page_title  : titre de l’onglet dans le navigateur
-layout="wide" : permet d’utiliser toute la largeur de l’écran (important pour des figures Plotly larges)
-"""
+# """
+# page_title  : titre de l’onglet dans le navigateur
+# layout="wide" : permet d’utiliser toute la largeur de l’écran (important pour des figures Plotly larges)
+# """
 st.set_page_config(page_title="Main Experiment (Streamlit)", layout="wide")
 
 # Titre de la page principale
@@ -71,15 +71,15 @@ st.title("Main Experiment")
 # ---------------------------------------------------------------------
 # Menu de navigation
 # ---------------------------------------------------------------------
-"""
-selectbox dans la barre latérale (st.sidebar)
-→ permet à l’utilisateur de choisir une page parmi la liste des clés du dict PAGES.
-"""
+# """
+# selectbox dans la barre latérale (st.sidebar)
+# → permet à l’utilisateur de choisir une page parmi la liste des clés du dict PAGES.
+# """
 page = st.sidebar.selectbox("🧭 Navigation", list(PAGES.keys()))
 
 # Appel dynamique de la page sélectionnée
-"""
-Chaque module possède une fonction render(base_path: Path)
-→ on lui passe Path(".") comme racine du projet
-"""
+# """
+# Chaque module possède une fonction render(base_path: Path)
+# → on lui passe Path(".") comme racine du projet
+# """
 PAGES[page](Path("."))
