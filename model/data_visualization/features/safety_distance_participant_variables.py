@@ -78,7 +78,7 @@ def fetch_data(selected_column: str):
                 AVG(c.safety_distance) AS safety_distance,
                 p.{selected_column}
             FROM Crossing c
-            JOIN Participant p ON c.participant_id = p.participant_id
+            JOIN participant p ON c.participant_id = p.participant_id
             GROUP BY c.participant_id, c.weather_id, c.velocity_id, p.{selected_column};
         """
         cursor.execute(query)

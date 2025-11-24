@@ -26,7 +26,7 @@ def load_participants_df() -> pd.DataFrame:
         raise RuntimeError("db_utils.get_db_connection introuvable/import impossible.")
     conn, cursor = get_db_connection()
     try:
-        cursor.execute("SELECT participant_id, age, sex, height, driver_license, scale FROM Participant;")
+        cursor.execute("SELECT participant_id, age, sex, height, driver_license, scale FROM participant;")
         cols = [c[0] for c in cursor.description]
         rows = cursor.fetchall()
     finally:
