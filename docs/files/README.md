@@ -118,11 +118,11 @@ Analyser comment les participants évaluent **leur capacité à traverser** avan
 # 🌐 Exécuter les notebooks dans votre navigateur (JupyterLite)
 
 ## 🧠 Notebook Expérience 1
-[![Launch Exp1](https://img.shields.io/badge/Open%20Exp1%20Notebook-%F0%9F%93%88-blue?style=for-the-badge)](https://sandravict0r.github.io/pedestrian-crossing-prediction/lab/index.html?path=/files/data_analysis_exp1.ipynb)
+[![Launch Exp1](https://img.shields.io/badge/Open%20Exp1%20Notebook-%F0%9F%93%88-blue?style=for-the-badge)](https://sandravict0r.github.io/pedestrian-crossing-prediction/lab/index.html?path=/data_analysis_exp1.ipynb)
 
 ## 🧠 Notebook Expérience 2
 
-[![Launch Exp2](https://img.shields.io/badge/Open%20Exp2%20Notebook-%F0%9F%96%A5%EF%B8%8F-purple?style=for-the-badge)](https://sandravict0r.github.io/pedestrian-crossing-prediction/lab/index.html?path=/files/data_analysis_exp2.ipynb)
+[![Launch Exp2](https://img.shields.io/badge/Open%20Exp2%20Notebook-%F0%9F%96%A5%EF%B8%8F-purple?style=for-the-badge)](https://sandravict0r.github.io/pedestrian-crossing-prediction/lab/index.html?path=/data_analysis_exp2.ipynb)
 
 
 ---
