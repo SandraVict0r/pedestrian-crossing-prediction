@@ -1,0 +1,57 @@
+{
+  "content": [
+    {
+      "content": null,
+      "created": "2025-11-24T20:41:08.076038Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2025-11-24T17:07:32.749317Z",
+      "mimetype": null,
+      "name": "data_analysis_exp1.ipynb",
+      "path": "data_analysis_exp1.ipynb",
+      "size": 4382777,
+      "type": "notebook",
+      "writable": true
+    },
+    {
+      "content": null,
+      "created": "2025-11-24T20:41:08.083795Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2025-11-24T17:37:09.202428Z",
+      "mimetype": null,
+      "name": "data_analysis_exp2.ipynb",
+      "path": "data_analysis_exp2.ipynb",
+      "size": 6497084,
+      "type": "notebook",
+      "writable": true
+    },
+    {
+      "content": null,
+      "created": "2025-11-24T20:41:08.095175Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2025-11-24T17:51:21.466497Z",
+      "mimetype": "text/markdown",
+      "name": "README.md",
+      "path": "README.md",
+      "size": 5094,
+      "type": "file",
+      "writable": true
+    }
+  ],
+  "created": "2025-11-24T20:41:08.076038Z",
+  "format": "json",
+  "hash": null,
+  "hash_algorithm": null,
+  "last_modified": "2025-11-24T20:41:08.095175Z",
+  "mimetype": null,
+  "name": "",
+  "path": "",
+  "size": null,
+  "type": "directory",
+  "writable": true
+}

@@ -1,4 +1,7 @@
 {
+  "config": {
+    "appName": "Pedestrian Crossing Prediction"
+  },
   "jupyter-config-data": {
     "appName": "JupyterLite",
     "appUrl": "./lab",
@@ -21,6 +24,12 @@
         "load": "static/remoteEntry.38ea05461c254e327731.js",
         "mimeExtension": "./mimeExtension",
         "name": "jupyterlab-plotly"
+      },
+      {
+        "extension": "./extension",
+        "load": "static/remoteEntry.5cbb9d2323598fbda535.js",
+        "name": "jupyterlab_pygments",
+        "style": "./style"
       }
     ],
     "fileTypes": {
