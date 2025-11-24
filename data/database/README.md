@@ -1,176 +1,82 @@
-
-# 📁 `data/database/` — README (VERSION MYSQL WORKBENCH)
+# 📁 `data/database/` — README
 
 ## 🎯 Objectif du dossier
 
-Ce dossier contient **tous les éléments nécessaires pour créer et alimenter la base de données MySQL du projet** :
+Le dossier **`data/database/`** regroupe tous les éléments nécessaires pour :
 
-* scripts SQL
-* scripts Python d’insertion des données VR
-* fichier `.env` pour la connexion
-* procédure complète via **MySQL Workbench**
+1. **Construire la base MySQL** utilisée comme structure intermédiaire entre les données brutes et les données processed.
+2. **Insérer automatiquement** les données issues des expériences VR (Exp1 & Exp2) ainsi que les informations du questionnaire.
+3. **Nettoyer la base** (suppression d’outliers).
+4. **Générer la table finale** utilisée pour produire les CSV propres dans `data/processed/`.
 
----
+Ce dossier constitue l’étape centrale du pipeline :
 
-# 🛠️ 1. Installer MySQL + MySQL Workbench
-
-Télécharger MySQL (inclut Workbench) :
-🔗 [https://dev.mysql.com/downloads/windows/installer/](https://dev.mysql.com/downloads/windows/installer/)
-(Sélectionner *MySQL Installer Community*)
-
-Lors de l’installation :
-
-* créer un mot de passe pour l’utilisateur `root`
-* installer **MySQL Server** + **MySQL Workbench**
-
-Pour lancer Workbench :
-👉 Ouvrir *MySQL Workbench*
-👉 Cliquer sur la connexion locale (ex : "Local instance MySQL80")
+📥 `data/raw/` → **Base MySQL** → 📤 `data/processed/`
 
 ---
 
-# 🗄️ 2. Créer la base de données dans Workbench
-
-Dans MySQL Workbench :
-
-1. Ouvrir un nouvel onglet SQL (icône *Create new SQL tab*)
-2. Copier :
-
-```sql
-CREATE DATABASE main_experiment;
-```
-
-3. Cliquer sur **⚡ Execute**
-
-La base apparaît dans l’onglet de gauche sous "Schemas".
-
----
-
-# 🔐 3. Configurer le fichier `.env`
-
-Le fichier `.env` (dans `data/database/python/.env`) contient les identifiants de connexion utilisés par les scripts Python.
-
-Format :
-
-```
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_USER=root
-DB_PASSWORD=VOTRE_MOT_DE_PASSE
-DB_NAME=main_experiment
-```
-
-⚠️ **NE JAMAIS le mettre sur GitHub.**
-Ajouter `.env` au `.gitignore`.
-
----
-
-# 📂 4. Structure du dossier
+## 📦 Structure du dossier
 
 ```
 database/
- ┣ python/   → scripts d’insertion des données VR
- ┣ sql/      → scripts SQL
- ┗ README.md
+ ┣ python/   → scripts d’insertion (participants, exp1, exp2)
+ ┣ sql/      → scripts SQL (création, nettoyage, extraction finale)
+ ┗ README.md ← (ce fichier)
 ```
 
-### 🔗 Liens vers les README détaillés
+### 🔗 Sous-README détaillés
 
-* 📦 Scripts Python → [`python/README.md`](python/README.md)
-* 🗄️ Scripts SQL → [`sql/README.md`](sql/README.md)
+* 🐍 Scripts Python : [`python/README.md`](./python/README.md)
+* 🗄️ Scripts SQL : [`sql/README.md`](./sql/README.md)
 
 ---
 
-# 🚀 5. Pipeline d’utilisation (100% MySQL Workbench)
+# 🧠 Rôle des sous-dossiers
 
-## 🔹 Étape 1 — Créer les tables
+## 📁 `python/` — Insertion automatique des données
 
-Dans Workbench :
+Ce dossier contient :
 
-1. Ouvrir `data/database/sql/bdd_creator.sql`
-2. Exécuter le script avec le bouton **⚡ Execute**
+* `db_utils.py` — connexion MySQL + helpers
+* `insert_participant_data_to_mysql.py`
+* `insert_perception_experiment_data_to_mysql.py`
+* `insert_crossing_experiment_data_to_mysql.py`
 
-Ce script :
+Ces scripts :
 
-* crée toutes les tables
-* insère les paramètres fixes
-* prépare la base à recevoir les données VR
-
----
-
-## 🔹 Étape 2 — Vérifier le `.env`
-
-S’assurer que :
-
-```
-data/database/python/.env
-```
-
-contient bien les infos de ta connexion Workbench.
+* lisent les fichiers de `data/raw/`
+* reconstruisent les essais exp1/exp2
+* alimentent les tables : `Participant`, `Perception`, `Crossing`, etc.
 
 ---
 
-## 🔹 Étape 3 — Importer les participants (Python)
+## 📁 `sql/` — Construction + nettoyage + extraction finale
 
-Dans VS Code ou un terminal :
+Contient :
 
-```
-python insert_participant_data_to_mysql.py
-```
-
-Le script utilise `.env` pour se connecter à MySQL Workbench.
+* `bdd_creator.sql` — création complète de la base + tables fixes
+* `bad_datas_to_remove.sql` — suppression des outliers
+* `model_datas_request.sql` — génération du tableau final pour `processed/`
 
 ---
 
-## 🔹 Étape 4 — Importer les données VR Exp1 (Perception)
+# 🔄 Pipeline d’utilisation (vue d’ensemble)
 
-```
-python insert_perception_experiment_data_to_mysql.py
-```
+1. **Créer la base** via `bdd_creator.sql`
+2. **Configurer `.env`** (connexion MySQL)
+3. **Insérer les données** avec les scripts Python
+4. **Nettoyer les données** (`bad_datas_to_remove.sql`)
+5. **Générer la table finale** (`model_datas_request.sql`)
+6. **Exporter en CSV** dans `data/processed/`
 
-Ce script parcourt `data/raw/.../exp1/`.
-
----
-
-## 🔹 Étape 5 — Importer les données VR Exp2 (Crossing)
-
-```
-python insert_crossing_experiment_data_to_mysql.py
-```
+👉 Les instructions détaillées sont disponibles dans les sous-README.
 
 ---
 
-## 🔹 Étape 6 — Nettoyer les outliers
+# 📌 Notes
 
-Dans Workbench :
+* `.env` ne doit jamais être versionné.
+* L’exécution SQL peut se faire via MySQL Workbench ou CLI.
+* Toutes les transformations doivent passer par la base -> ne **jamais modifier `raw/`**.
+* Les CSV finaux sont produits dans `data/processed/`.
 
-1. Ouvrir `bad_datas_to_remove.sql`
-2. ⚡ Exécuter
-
-Ce script supprime les participants/essais identifiés comme outliers.
-
----
-
-## 🔹 Étape 7 — Générer le dataset final
-
-Toujours dans Workbench :
-
-1. Ouvrir `model_datas_request.sql`
-2. ⚡ Exécuter
-
-Le script génère la table / vue finale.
-
-Ensuite exporter les résultats :
-
-👉 **File ▸ Export Results**
-👉 Format : **CSV**
-👉 Destination : `data/processed/`
-
----
-
-# 📌 Notes importantes
-
-* Le `.env` n’est **jamais** partagé
-* MySQL Workbench est utilisé pour **toutes** les exécutions SQL
-* Les scripts Python doivent être exécutés **après** la création des tables
-* `data/processed/` contient **tous les CSV finaux**, y compris ceux utilisés pour le modèle ML

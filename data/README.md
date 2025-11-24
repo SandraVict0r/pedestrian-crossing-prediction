@@ -1,166 +1,171 @@
-# 📁 `data/raw/` — README
+# 📘 *Pedestrian-Crossing Behavior – Data Pipeline*
 
+### **README global du dossier `data/`**
 
-Le dossier **`data/raw/`** contient **l’ensemble des données brutes collectées dans l’environnement VR** pour les deux expériences du protocole :
+Ce dossier contient **toutes les données utilisées dans la thèse**, ainsi que l’ensemble des scripts nécessaires pour :
 
-* **Expérience 1 (Exp1)** : *Perception de distance et de vitesse*
-* **Expérience 2 (Exp2)** : *Décision de traversée / Crossing behavior*
+* stocker
+* structurer
+* nettoyer
+* transformer
+* exporter
+  les données finales prêtes pour la modélisation.
 
-Ces fichiers proviennent directement de l’enregistrement Unreal Engine / VR et n’ont subi **aucune modification**.
-Ils sont utilisés :
+Il couvre toute la chaîne :
 
-* par les scripts Python d’insertion (`data/database/python/`)
-* pour reconstruire les séquences d’expérimentation
-* avant le nettoyage et l’intégration en base SQL (`data/database/sql/`)
+- **VR Raw Data**
+- **Insertion dans MySQL**
+- **Nettoyage + Agrégation SQL**
+- **Export CSV final**
+- **Utilisation dans le dossier `model/`**
+
+Ce README présente une vue d’ensemble et redirige vers la documentation détaillée de chaque sous-dossier.
 
 ---
 
-# 📂 Structure générale
+# 📑 **SOMMAIRE**
 
-Chaque participant possède un dossier nommé :
+1. [Objectif général](#objectif-général)
+2. [Architecture complète du dossier](#architecture-complète-du-dossier)
+3. [Description des sous-dossiers](#description-des-sous-dossiers)
+4. [Pipeline global des données (raw → processed)](#pipeline-global-des-données-raw--processed)
+5. [Relations entre données VR, questionnaires et MySQL](#relations-entre-données-vr-questionnaires-et-mysql)
+6. [Vue globale : liens vers tous les README internes](#vue-globale--liens-vers-tous-les-readme-internes)
+
+---
+
+
+# 🏗️ **Architecture complète du dossier**
 
 ```
-XXX_NN/
+data/
+ ┣ database/           → Base SQL + scripts Python
+ ┣ processed/          → CSV propres et prêts pour la modélisation
+ ┣ questionnaires/     → Formulaires bruts des participants
+ ┣ raw/                → Données VR brutes (Exp1 & Exp2)
+ ┗ README.md           → (ce fichier)
 ```
 
-où `NN` est un identifiant interne **qui ne correspond pas nécessairement** au numéro de participant dans le questionnaire.
+---
 
-Exemple :
+# 📂 **Description des sous-dossiers**
+
+---
+
+## 1️⃣ `data/raw/` — Données VR brutes
+
+Contient **tous les enregistrements VR** : `cars.csv`, `peds.csv`, `gaze.csv`,
+organisés par participant / expérience / trial.
+
+📄 Documentation :
+👉 [`raw/README.md`](raw/README.md)
+
+---
+
+## 2️⃣ `data/questionnaires/` — Formulaires bruts
+
+Regroupe :
+
+* **consentement**
+* **informations personnelles**
+* **questionnaire de perception**
+
+📄 Documentation :
+👉 [`questionnaires/README.md`](questionnaires/README.md)
+
+📌 **Note :**
+`participant.csv` = **fusion** automatique de `perception_form.csv` + `consent_form.csv`.
+
+---
+
+## 3️⃣ `data/database/` — Pipeline SQL complet
+
+Ce dossier contient :
+
+* scripts SQL : création + nettoyage + extraction
+* scripts Python : insertion VR + participant + perception
+* fichier `.env` (non versionné)
+
+📄 Documentation :
+👉 [`database/README.md`](database/README.md)
+
+Sous-documents :
+
+* Python → [`database/python/README.md`](database/python/README.md)
+* SQL → [`database/sql/README.md`](database/sql/README.md)
+
+---
+
+## 4️⃣ `data/processed/` — CSV propres pour la modélisation
+
+Contient les **9 jeux de données finaux**, séparés par :
+
+* météo (`clear`, `rain`, `night`)
+* vitesse (`low`, `medium`, `high`)
+
+📄 Documentation :
+👉 [`processed/README.md`](processed/README.md)
+
+Ces fichiers alimentent directement le dossier :
+👉 `model/`
+
+---
+
+# 🔁 **Pipeline global des données (raw → processed)**
 
 ```
 data/raw/
- ┣ XXX_24/
- ┃ ┣ exp1/
- ┃ ┃ ┣ 1/
- ┃ ┃ ┃ ┣ cars.csv
- ┃ ┃ ┃ ┣ gaze.csv
- ┃ ┃ ┃ ┗ peds.csv
- ┃ ┃ ┣ 2/
- ┃ ┃ ┃ ┗ ...
- ┃ ┃ ┗ ... (jusqu'à 27)
- ┃ ┣ exp2/
- ┃ ┃ ┣ 1/
- ┃ ┃ ┃ ┣ cars.csv
- ┃ ┃ ┃ ┣ gaze.csv
- ┃ ┃ ┃ ┗ peds.csv
- ┃ ┃ ┗ ... (27 essais)
- ┃ ┣ participant_? _commands_exp1.xlsx
- ┃ ┗ participant_? _commands_exp2.xlsx
+       ↓ parsing
+database/python/*.py
+       ↓ insertion SQL
+database/sql/bdd_creator.sql
+       ↓ nettoyage
+database/sql/bad_datas_to_remove.sql
+       ↓ agrégation
+database/sql/model_datas_request.sql
+       ↓ export MySQL Workbench
+data/processed/*.csv
+       ↓
+model/  (entraînement ML)
 ```
 
-* **Toujours deux expériences : `exp1` et `exp2`**
-* **Toujours 27 essais chacun**
-* **Chaque essai = 3 fichiers CSV**
-* **Les fichiers `.xlsx` ne portent pas le même identifiant que le dossier `XXX_NN`**
+---
+
+# 🔗 **Relations entre données VR, questionnaires et MySQL**
+
+### • `questionnaires/`
+
+→ crée **participant.csv**, qui alimente la table SQL `Participant`
+
+### • `raw/`
+
+→ fourni les fichiers VR bruts pour Exp1 et Exp2
+
+### • `database/python/`
+
+→ lit `raw/` et `participant.csv`
+→ insère dans les tables SQL (`Participant`, `Perception`, `Crossing`, etc.)
+
+### • `database/sql/`
+
+→ nettoie la base
+→ assemble toutes les tables en une vue finale
+
+### • `processed/`
+
+→ export CSV final
+→ utilisé dans `model/`
 
 ---
 
-# 🧩 Description des fichiers expérimentaux
+# 🌐 **Vue globale : liens vers tous les README internes**
 
-## 1️⃣ `cars.csv` — Trajectoire du véhicule
+| Dossier            | Documentation                                               |
+| ------------------ | ----------------------------------------------------------- |
+| VR Brutes          | 👉 [`raw/README.md`](raw/README.md)                         |
+| Questionnaires     | 👉 [`questionnaires/README.md`](questionnaires/README.md)   |
+| Base SQL globale   | 👉 [`database/README.md`](database/README.md)               |
+| Scripts Python SQL | 👉 [`database/python/README.md`](database/python/README.md) |
+| Scripts SQL        | 👉 [`database/sql/README.md`](database/sql/README.md)       |
+| CSV finaux         | 👉 [`processed/README.md`](processed/README.md)             |
 
-Contient l’état de la voiture à chaque frame.
-
-| Colonne                   | Description                           |
-| ------------------------- | ------------------------------------- |
-| `Time`                    | Timestamp dans la simulation          |
-| `Time_estimated`          | Estimation Unreal Engine (inutilisée) |
-| `X_pos`, `Y_pos`, `Z_pos` | Position réelle du véhicule           |
-| `X_est`, `Y_est`, `Z_est` | Estimation interne (peut rester à 0)  |
-| `X_vel`, `Y_vel`, `Z_vel` | Vitesse instantanée                   |
-| `Crossing_value`          | Booléan interne (souvent 0)           |
-
-
----
-
-## 2️⃣ `gaze.csv` — Données du regard
-
-Contient les données du suivi oculaire du participant.
-
-| Colonne                            | Description                                       |
-| ---------------------------------- | ------------------------------------------------- |
-| `Time`                             | Timestamp                                         |
-| `X_origin`, `Y_origin`, `Z_origin` | Position 3D de l’origine du regard (caméra VR)    |
-| `X_direction`, ...                 | Vecteur direction du regard                       |
-| `X_fixation`, ...                  | Point de fixation estimé (souvent vide si stable) |
-| `Confidence`                       | Score de confiance [0–1]                          |
-
-
----
-
-## 3️⃣ `peds.csv` — Position du piéton
-
-Données de déplacement du participant dans l’environnement VR.
-
-| Colonne                   | Description                  |
-| ------------------------- | ---------------------------- |
-| `Time`                    | Timestamp                    |
-| `X_pos`, `Y_pos`, `Z_pos` | Position 3D du piéton        |
-| `X_rot`, `Y_rot`, `Z_rot` | Orientation (yaw/pitch/roll) |
-
-
----
-
-## 4️⃣ Fichiers `.xlsx` — Log des commandes Exp1 / Exp2
-
-Deux fichiers par participant :
-
-```
-participant_<id>_commands_exp1.xlsx
-participant_<id>_commands_exp2.xlsx
-```
-
-Contiennent :
-
-| Colonne                                 | Description                                     |
-| --------------------------------------- | ----------------------------------------------- |
-| `Participant`                           | identifiant réel du participant                 |
-| `Position (-pos)`                       | position du véhicule                            |
-| `Velocity (-v)`                         | vitesse du véhicule                             |
-| `Distance (-d)`                         | distance initiale                               |
-| `Weather`                               | météo (`clear`, `night`, `rain`)                |
-| `Rain (-r)`, `Cloud (-c)`, `Light (-l)` | flags environnement                             |
-| `Command`                               | ligne de commande utilisée pour générer l’essai |
-
-🎯 **Utilisation** :
-
-* récupération des paramètres expérimentaux
-* insertion dans la table SQL `DistanceDisappearance` & `Velocity`
-* cohérence exp1/exp2 pour chaque trial
-
----
-
-# 🔄 Pipeline d’utilisation des fichiers bruts
-
-### Ces fichiers sont consommés par :
-
-### 1. Les scripts Python :
-
-📌 [`data/database/python/`](../database/python/README.md)
-
-* insertion participants → `Participant`
-* reconstruction perception exp1 → `Perception`
-* reconstruction crossing exp2 → `Crossing`
-
-### 2. Les scripts SQL :
-
-📌 [`data/database/sql/`](../database/sql/README.md)
-
-* nettoyage (`bad_datas_to_remove.sql`)
-* génération du dataset final ML (`model_datas_request.sql`)
-
-### 3. Export du dataset final vers :
-
-📦 `data/processed/` (CSV propres)
-
----
-
-# 🧼 Recommandations
-
-* **Ne jamais modifier** les fichiers dans `raw/`
-* Conserver la structure folder/participant/exp/trial exactement
-* Vérifier que chaque participant a bien :
-  * 27 essais exp1
-  * 27 essais exp2
-  * 2 fichiers command `.xlsx`
-* Utiliser `processed/` pour toute version nettoyée

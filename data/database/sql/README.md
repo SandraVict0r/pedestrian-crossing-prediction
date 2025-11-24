@@ -155,6 +155,5 @@ Les scripts Python :
 
    * via MySQL Workbench
    * ou via un script Python utilisant pandas
-     dans :
-     👉 `data/processed/model_training/`
+     dans : `data/processed/`
 
