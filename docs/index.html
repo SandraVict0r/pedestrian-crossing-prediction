@@ -1,39 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pedestrian Crossing Analysis - Notebooks</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 40px; }
-        h1 { color: #444; }
-        a.button {
-            background: #007acc;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 6px;
-            text-decoration: none;
-            display: inline-block;
-            margin: 10px 0;
-        }
-        a.button:hover { background: #005a99; }
-    </style>
-</head>
-<body>
+<!--
+  This is the root document for _your_ JupyterLite. Thanks for viewing your source!
+     ___ __   __ _______ __   __ _______ _______ ______   ___     ___ _______ _______
+    |   |  | |  |       |  | |  |       |       |    _ | |   |   |   |       |       |
+    |   |  | |  |    _  |  |_|  |_     _|    ___|   | || |   |   |   |_     _|    ___|
+    |   |  |_|  |   |_| |       | |   | |   |___|   |_||_|   |   |   | |   | |   |___
+ ___|   |       |    ___|_     _| |   | |    ___|    __  |   |___|   | |   | |    ___|
+|       |       |   |     |   |   |   | |   |___|   |  | |       |   | |   | |   |___
+|_______|_______|___|     |___|   |___| |_______|___|  |_|_______|___| |___| |_______|
 
-<h1>📘 Pedestrian Crossing Prediction — JupyterLite</h1>
-<p>Choisissez un notebook à ouvrir :</p>
+Code: https://github.com/jupyterlite/jupyterlite
+Demo: https://jupyterlite.rtfd.io/en/latest/try
 
-<a class="button"
-   href="lab/index.html?path=/notebooks/data_analysis_exp1.ipynb">
-   Ouvrir Notebook Expérience 1
-</a>
-<br />
+# FILES
 
-<a class="button"
-   href="lab/index.html?path=/notebooks/data_analysis_exp2.ipynb">
-   Ouvrir Notebook Expérience 2
-</a>
+Your JupyterLite is structured like this:
 
-</body>
+    index.html             <---- you are here
+    {:app}/                <---- currently-known: `lab` (semi-required) and `notebook`
+      index.html
+      extensions/
+        {:org}/{:package}/ <---|
+        {:package}/        <---+- federated extensions
+          schema/
+          package.json
+    # TBD
+    files/                 <----- also need to populate `api/contents/`!
+    static/                <----- might save duplication
+      {:app}
+
+-->
+<html>
+  <head>
+    <!--
+      # jupyter-config-data
+
+      The JSON in `jupyter-lite.json` is the last that will be loaded by most
+      child `index.html` pages, and every field can be overridden.
+
+      See the recognized schema as described in the documentation:
+
+      - https://jupyterlite.rtfd.io/en/latest/reference/schema.html
+
+      Notes
+        - fields that...
+          - are relative paths values
+            - will have the parent directory of _this_ file appended, accounting
+              for "magic" hosts which redirect to `{:path}index.html` to `{:path}`,
+              with or without a slash
+        - some fields, such as `federated_extensions` will be _added together_
+    -->
+    <script id="jupyter-config-data" type="application/json" data-jupyter-lite-root=".">
+      {}
+    </script>
+    <!--
+      # jupyter-lite-root
+
+      The source of truth for relative path locations. The `.` means _this_
+      is the root, and will redirect to the `appUrl` defined in
+      `.jupyter-lite/#jupyter-config-data`.
+    -->
+    <script type="module">
+      await import('./config-utils.js');
+    </script>
+    <!-- that's it, there shouldn't be anything below here in head! -->
+  </head>
 </html>
