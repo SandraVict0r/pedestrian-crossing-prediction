@@ -1,7 +1,8 @@
 # db_utils.py
 import os
 from pathlib import Path
-
+import streamlit as st
+import mysql.connector
 def _load_env():
     """Charge .env s’il est présent (sans planter si python-dotenv manque)."""
     try:
@@ -30,21 +31,18 @@ def _read_env():
         )
     return host, user, password, name, port
 
+
+
 def get_db_connection():
-    """
-    Connexion via mysql-connector-python.
-    Retourne (conn, cursor).
-    """
-    host, user, password, name, port = _read_env()
-    try:
-        import mysql.connector
-        conn = mysql.connector.connect(
-            host=host, user=user, password=password, database=name, port=port
-        )
-        cursor = conn.cursor()
-        return conn, cursor
-    except Exception as e:
-        raise RuntimeError(f"Échec connexion MySQL (mysql-connector): {e}")
+    conn = mysql.connector.connect(
+        host=st.secrets["DB_HOST"],
+        port=int(st.secrets["DB_PORT"]),
+        user=st.secrets["DB_USER"],
+        password=st.secrets["DB_PASSWORD"],
+        database=st.secrets["DB_NAME"]
+    )
+    cursor = conn.cursor()
+    return conn, cursor
 
 def get_py_db_connection():
     """
