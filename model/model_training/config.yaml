@@ -1,0 +1,30 @@
+# config.yaml — Training configuration for the analytical pedestrian behavior model
+
+paths:
+  processed_folder: "../../data/processed/"
+  save_coefficients: "../saved_models/learned_coefficients.yaml"
+  logs: "./logs/"
+
+
+data:
+  # Filtrage sur le temps de sécurité moyen
+  # (correspond à datas_until_7 = prepare_data(datas, 7))
+  safety_time_limit: 7.0
+
+features:
+  predictors:
+    - height
+    - height^2
+    - velocity_exp2
+  target: "avg_safety_time"
+  weather_column: "weather"
+
+model:
+  type: "linear_regression"
+  include_intercept: true
+
+training:
+  test_size: 0.2
+  random_state: 42
+  n_splits_cv: 10
+  shuffle_cv: true
