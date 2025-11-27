@@ -1,10 +1,9 @@
 model_info:
-  name: Pedestrian_NoCrossing_Model
+  name: Pedestrian_Pedestrian_Model
   version: '1.0'
-  description: 'Modèle analytique prédictif du temps minimal de non-traversée, incluant
-    : coefficients globaux (a, b, c, intercept), coefficients multiplicateurs météo
-    (alpha_weather), et biais comportementaux (µ, σ) issus du pipeline Model V2.'
-  generated_on: '2025-11-25 19:07:40'
+  description: Modele analytique predictif du temps minimal de non-traversee incluant
+    coefficients globaux, alphas meteo, et biais (mu, sigma) du pipeline V2.
+  generated_on: '2025-11-26 15:58:27'
 coefficients_global:
   a_height: -1.3614039391240178
   b_height2: 0.0038676737908700702
@@ -26,3 +25,16 @@ weather_parameters:
     bias:
       mu: 0.000727462109960311
       sigma: 0.9393291370826783
+metrics_test:
+  no_bias:
+    MAE: 0.7309657682986329
+    RMSE: 0.9488522823667531
+    R2: 0.47890772271204485
+    ME: -0.008933480587236649
+    STD: 0.9488102269037756
+  final:
+    MAE: 1.7769813931858016
+    RMSE: 2.005227425297905
+    R2: -1.3272588755845804
+    ME: 1.7373646267209988
+    STD: 1.0012498094808653

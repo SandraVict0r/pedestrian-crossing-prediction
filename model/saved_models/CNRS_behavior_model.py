@@ -2,180 +2,168 @@
 CNRS_behavior_model.py
 ----------------------
 
-Pedestrian Crossing Behavior Model
-Developed as part of the PhD thesis:
-"A Neuroscience-Based Robust AI Model for Predicting Pedestrian Crossing Behavior
-by Autonomous Vehicles"
+Pedestrian Non-Crossing Time Threshold Model (final adjusted version)
 
-This script implements a deterministic analytical model predicting whether a pedestrian
-will decide to cross in front of an oncoming vehicle based on:
+Ce script implémente le modèle final basé sur :
 
-    - weather condition (clear, rain, night)
-    - pedestrian height (cm)
-    - vehicle velocity (km/h)
-    - distance between vehicle and pedestrian (m)
+    T_pred   = a*h + b*h² + c*v + intercept
+    T_weather = α_weather * T_pred
+    T_end     = T_weather - 2σ_weather + μ_weather   (toujours utilisé)
 
-The model combines:
-    - perceptual scaling (weather-dependent α correction)
-    - biomechanical parameters (height, height²)
-    - vehicle kinematics (velocity in km/h)
-    - empirical correction terms (standard deviation, ME)
+Interprétation :
+    T_end = seuil comportemental : si le temps réel avant collision (TTC_real)
+    est inférieur à T_end → le piéton NE traverse PAS.
 
-It returns a binary decision:
-    → True  = pedestrian decides to cross
-    → False = pedestrian decides NOT to cross
-
-This file can be called:
-    - as a Python module (import)
-    - as a standalone CLI tool (python CNRS_behavior_model.py …)
-
+Décision :
+    - Si TTC_real >= T_end  → traverse (True)
+    - Si TTC_real <  T_end  → ne traverse pas (False)
 """
 
-import argparse
+from pathlib import Path
+import yaml
 
 
-def pedestrian_behavior_model(weather, height, velocity, distance, use_adjusted=False):
-    """
-    Predicts whether a pedestrian will cross based on perceptual and kinematic variables.
+# ============================================================================
+# Chargement du modèle YAML
+# ============================================================================
 
-    Parameters
-    ----------
-    weather : str
-        One of {"clear", "rain", "night"}. Weather influences perceptual scaling α.
-    height : float
-        Pedestrian height in centimeters.
-    velocity : float
-        Vehicle speed in km/h.
-    distance : float
-        Current distance between the vehicle and the pedestrian in meters.
-    use_adjusted : bool, optional
-        If True, uses the adjusted decision threshold:
-            predicted_time - 2 * std + ME
-        Otherwise uses the raw predicted time.
+_CACHE = None
 
-    Returns
-    -------
-    bool
-        True  → pedestrian decides to cross
-        False → pedestrian decides NOT to cross
+def _load_yaml():
+    """Charge final_model.yaml (une seule fois)."""
+    global _CACHE
+    if _CACHE is not None:
+        return _CACHE
 
-    Notes
-    -----
-    predicted_time corresponds to the internal perceptual estimate of time-to-collision
-    based on the model. If real_time < predicted_time → collision perceived as imminent.
-    """
-
-    # -------------------------
-    # Model coefficients
-    # -------------------------
-
-    # Base coefficients derived from fitting behavioural data (height, height², velocity)
-    coefs_mean = {
-        'height': -1.3614,
-        'height^2': 0.0039,
-        'velocity': -0.0540,
-        'intercept': 126.0592
-    }
-
-    # Weather-dependent perceptual scaling α
-    alphas_mean = {
-        'clear': 1.0385,
-        'night': 1.0008,
-        'rain': 0.9681
-    }
-
-    # Standard deviations for each weather condition (uncertainty correction)
-    stds = {
-        'clear': 1.0,
-        'night': 0.94,
-        'rain': 0.72
-    }
-
-    # Mean error adjustments for model calibration
-    mes = {
-        'clear': 0.04,
-        'night': 0.00,
-        'rain': 0.00
-    }
-
-    # -------------------------
-    # Check that weather is valid
-    # -------------------------
-    if weather not in alphas_mean:
-        raise ValueError(
-            f"Weather '{weather}' not recognized. "
-            f"Choose among {list(alphas_mean.keys())}"
+    yaml_path = Path(__file__).resolve().with_name("final_model.yaml")
+    if not yaml_path.exists():
+        raise FileNotFoundError(
+            f"final_model.yaml introuvable à côté de {__file__}."
         )
 
-    # Extract α for weather
-    alpha = alphas_mean[weather]
+    with open(yaml_path, "r", encoding="utf-8") as f:
+        _CACHE = yaml.safe_load(f)
 
-    # Extract base coefficients
-    a = coefs_mean['height']
-    b = coefs_mean['height^2']
-    c = coefs_mean['velocity']
-    intercept = coefs_mean['intercept']
-
-    # -------------------------
-    # Compute predicted perceptual time-to-collision (perceptual TTC)
-    # -------------------------
-    predicted_time = alpha * (a * height + b * height**2 + c * velocity + intercept)
-
-    # Adjusted decision threshold (more conservative)
-    adjusted_time = predicted_time - 2 * stds[weather] + mes[weather]
-
-    # -------------------------
-    # Compute real TTC based on vehicle kinematics
-    # Convert velocity from km/h → m/s
-    # -------------------------
-    velocity_m_s = velocity * 1000 / 3600
-
-    # Avoid division by zero if input velocity = 0
-    if velocity_m_s <= 0:
-        velocity_m_s = 1e-9
-
-    real_time = distance / velocity_m_s
-
-    # -------------------------
-    # Decision rule
-    # -------------------------
-    threshold = adjusted_time if use_adjusted else predicted_time
-
-    # If the real TTC is smaller than perceptual TTC → pedestrian perceives danger → no crossing
-    if real_time < threshold:
-        return False
-    else:
-        return True
+    return _CACHE
 
 
-# ------------------------------------------------------------------------------
-# CLI Interface
-# ------------------------------------------------------------------------------
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(
-        description="Pedestrian crossing behavior model (thesis version)"
+def _get_coeffs():
+    """Retourne les coefficients globaux du modèle."""
+    params = _load_yaml()["coefficients_global"]
+    return {
+        "a": float(params["a_height"]),
+        "b": float(params["b_height2"]),
+        "c": float(params["c_velocity"]),
+        "intercept": float(params["intercept"]),
+    }
+
+
+def _get_weather_params(weather: str):
+    """Retourne alpha, mu, sigma pour une météo donnée."""
+    all_wp = _load_yaml()["weather_parameters"]
+    if weather not in all_wp:
+        raise ValueError(f"Météo inconnue : {weather}. Choisir parmi {list(all_wp.keys())}")
+
+    wp = all_wp[weather]
+    return {
+        "alpha": float(wp["alpha_weather"]),
+        "mu": float(wp["bias"]["mu"]),
+        "sigma": float(wp["bias"]["sigma"]),
+    }
+
+
+# ============================================================================
+# Calcul du seuil T_end
+# ============================================================================
+
+def predict_T_end(weather: str, height_cm: float, velocity_kmh: float) -> float:
+    """
+    Calcule le seuil T_end (en secondes), SEULE version utilisée :
+
+        T_pred    = a*h + b*h² + c*v + intercept
+        T_weather = α_weather · T_pred
+        T_end     = T_weather - 2σ + μ
+    """
+    coefs = _get_coeffs()
+    wp = _get_weather_params(weather)
+
+    h = float(height_cm)
+    v = float(velocity_kmh)
+
+    # Modèle de base
+    T_pred = (
+        coefs["a"] * h
+        + coefs["b"] * (h**2)
+        + coefs["c"] * v
+        + coefs["intercept"]
     )
 
-    parser.add_argument("-weather", required=True,
-                        choices=['clear', 'rain', 'night'],
-                        help="Weather condition")
+    # Effet météo
+    T_weather = wp["alpha"] * T_pred
 
-    parser.add_argument("-height", type=float, required=True,
-                        help="Pedestrian height in cm")
+    # Ajustement final (biais V2)
+    T_end = T_weather - 2 * wp["sigma"] + wp["mu"]
 
-    parser.add_argument("-velocity", type=float, required=True,
-                        help="Ego vehicle velocity in km/h")
+    return float(T_end)
 
-    parser.add_argument("-distance", type=float, required=True,
-                        help="Distance between ego vehicle and pedestrian in meters")
 
-    parser.add_argument("--use_adjusted", action='store_true',
-                        help="Use adjusted threshold (predicted_time - 2*std + ME)")
+# ============================================================================
+# Décision de traversée + TTC
+# ============================================================================
+
+def crossing_decision(
+    weather: str,
+    height_cm: float,
+    velocity_kmh: float,
+    distance_m: float,
+) -> tuple[bool, float, float]:
+    """
+    Retourne :
+        - decision (bool)
+        - T_end (float)
+        - TTC_real (float)
+    """
+    T_end = predict_T_end(weather, height_cm, velocity_kmh)
+
+    v_ms = velocity_kmh * 1000.0 / 3600.0
+    if v_ms <= 0:
+        return True, T_end, float("inf")   # véhicule arrêté → traverse
+
+    TTC_real = distance_m / v_ms
+
+    decision = TTC_real >= T_end
+    return decision, T_end, TTC_real
+
+
+# Alias historique
+def pedestrian_behavior_model(weather, height, velocity, distance):
+    decision, _, _ = crossing_decision(weather, height, velocity, distance)
+    return decision
+
+
+# ============================================================================
+# CLI simple
+# ============================================================================
+
+if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        description="Pedestrian non-crossing threshold model (adjusted version)"
+    )
+    parser.add_argument("-weather", required=True, choices=["clear", "rain", "night"])
+    parser.add_argument("-height", type=float, required=True)
+    parser.add_argument("-velocity", type=float, required=True)
+    parser.add_argument("-distance", type=float, required=True)
 
     args = parser.parse_args()
 
-    decision = pedestrian_behavior_model(
-        args.weather, args.height, args.velocity, args.distance, args.use_adjusted
+    decision, T_end, TTC_real = crossing_decision(
+        args.weather, args.height, args.velocity, args.distance
     )
 
-    print(f"Crossing decision: {decision}")
+    print("=== Pedestrian Crossing Model ===")
+    print(f"Weather       : {args.weather}")
+    print(f"T_end         : {T_end:.3f} s  (adjusted)")
+    print(f"TTC_real      : {TTC_real:.3f} s")
+    print(f"Decision      : {decision}  (True = cross)")

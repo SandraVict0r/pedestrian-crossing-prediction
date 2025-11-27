@@ -1,0 +1,33 @@
+=== Model Training Report ===
+
+Generated on : 2025-11-26 15:58:27
+
+Global coefficients (CV mean):
+  height    : -1.3614
+  height^2  : 0.0039
+  velocity_exp2: -0.0540
+  intercept : 126.0592
+
+Alphas (per weather):
+  clear : 1.0385
+  night : 1.0008
+  rain  : 0.9681
+
+Bias V2 (mu, sigma) per weather:
+  clear : mu=0.0386, sigma=1.0008
+  rain  : mu=0.0006, sigma=0.7211
+  night : mu=0.0007, sigma=0.9393
+
+Test performance (no bias):
+  MAE   : 0.7310
+  RMSE  : 0.9489
+  R2    : 0.4789
+  ME    : -0.0089
+  STD   : 0.9488
+
+Test performance (final model with bias):
+  MAE   : 1.7770
+  RMSE  : 2.0052
+  R2    : -1.3273
+  ME    : 1.7374
+  STD   : 1.0012
