@@ -1,0 +1,15 @@
+true_label,predicted_label,weather,ped_height_cm,vehicle_speed_kmh,distance_m,adj
+False,True,clear,169.6,12.87,26.05266102,False
+False,True,clear,169.6,13.01,25.34070143,False
+False,False,clear,169.6,13.19,24.26596887,False
+False,False,clear,169.6,13.24,23.96264318,False
+False,False,clear,169.6,13.41,22.07615673,False
+False,False,clear,169.6,13.38,21.64268581,False
+False,False,clear,169.6,13.47,21.28500247,False
+False,False,clear,169.6,13.51,20.97432804,False
+False,False,clear,169.6,13.48,20.54508773,False
+False,False,clear,169.6,13.54,19.91835117,False
+False,False,clear,169.6,13.56,19.51043413,False
+False,False,clear,169.6,13.56,19.161689,False
+False,False,clear,169.6,13.55,18.76861582,False
+False,False,clear,169.6,13.58,18.40578986,False

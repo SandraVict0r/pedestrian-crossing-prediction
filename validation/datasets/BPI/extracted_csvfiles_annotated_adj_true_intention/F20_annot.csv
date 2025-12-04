@@ -1,0 +1,6 @@
+true_label,predicted_label,weather,ped_height_cm,vehicle_speed_kmh,distance_m,adj
+False,True,clear,178.1,16.9,24.24636309,True
+False,True,clear,178.1,16.94,23.89527106,True
+False,False,clear,178.1,14.42,10.33761021,True
+False,False,clear,178.1,14.71,9.927465989,True
+False,False,clear,178.1,16.17,5.259391496,True
