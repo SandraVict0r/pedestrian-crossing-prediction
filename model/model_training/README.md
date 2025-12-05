@@ -1,6 +1,6 @@
-# 📁 `model_training/` — README
+# `model_training/` — README
 
-## 🎯 Objectif du dossier
+## Objectif du dossier
 
 Le dossier **`model_training/`** contient l’ensemble des outils nécessaires pour :
 
@@ -51,7 +51,7 @@ G --> I
 ```
 ---
 
-## 📦 Structure du dossier
+## Structure du dossier
 
 ```
 model_training/
@@ -61,10 +61,10 @@ model_training/
  │    └── performance.txt      # Rapport final des performances du 
 
 ```
-# 🧠 Description des fichiers
+# Description des fichiers
 
 
-## 📘 `model.ipynb` — Notebook d'exploration et d'entraînement
+## `model.ipynb` — Notebook d'exploration et d'entraînement
 
 Notebook accessible ici : 
 
@@ -72,14 +72,14 @@ Notebook accessible ici :
 
 Le notebook reprend l’ensemble du pipeline scientifique :
 
-### **🔍 Exploration & préparation**
+### ** Exploration & préparation**
 
 * chargement des 9 CSV météo × vitesse,
 * concaténation, ajout de la colonne `weather`,
 * calcul : `velocity_ms`, `avg_safety_time`,
 * filtrage `avg_safety_time < 7` pour stabiliser le modèle.
 
-### **🧩 Construction des features**
+### ** Construction des features**
 
 * `height`
 * `height²`
@@ -87,13 +87,13 @@ Le notebook reprend l’ensemble du pipeline scientifique :
 
 (possibilité d’ajouter d'autres polynômes pour l'analyse scientifique)
 
-### **🏋️ Modèle global**
+### ** Modèle global**
 
 * régression linéaire sur 80% du dataset,
 * cross-validation 10 folds → coefficients (a, b, c, intercept),
 * estimation des coefficients météo : `alpha_clear`, `alpha_rain`, `alpha_night`.
 
-### **🧠 Modèle V2 (biais comportemental)**
+### ** Modèle V2 (biais comportemental)**
 
 Pour chaque météo :
 
@@ -126,21 +126,21 @@ $$
 introduit une **marge de sécurité conservatrice**.
 
 
-### **📉 Évaluation**
+### ** Évaluation**
 
 * prédictions "no bias" vs prédictions finales,
 * calcul MAE, RMSE, R², ME, STD,
 * visualisations : scatter, résidus, météo × prédiction.
 
-### **💾 Export**
+### ** Export**
 
 * sauvegarde du modèle dans `saved_models/final_model.yaml`.
 
-👉 **Usage :** documentation scientifique + figures de la thèse + justification du modèle.
+**Usage :** documentation scientifique + figures de la thèse + justification du modèle.
 
 ---
 
-## 🏋️ `train.py` — Script d’entraînement automatisé
+## `train.py` — Script d’entraînement automatisé
 
 Version “production" entièrement reproductible du notebook.
 
@@ -171,7 +171,7 @@ Le script effectue automatiquement :
 
 ### **4. Cross-validation 10 folds**
 
-→ estimation moyenne :
+estimation moyenne :
 
 * coefficients globaux (a, b, c, intercept)
 * coefficients météo `alpha_weather`
@@ -201,7 +201,7 @@ Métriques calculées :
 
 ### **7. Export modèle final**
 
-→ `saved_models/final_model.yaml`
+`saved_models/final_model.yaml`
 
 Contient :
 
@@ -212,16 +212,16 @@ Contient :
 
 ### **8. Export rapport texte**
 
-→ `logs/performance.txt`
+`logs/performance.txt`
 
 ---
 
-## 📄 `logs/performance.txt` — Rapport d’entraînement
+## `logs/performance.txt` — Rapport d’entraînement
 
 Le fichier contient un résumé complet du modèle appris.
 Voici un **exemple réel** généré le 26/11/2025 :
 
-### **🔢 Coefficients globaux (moyenne CV)**
+### ** Coefficients globaux (moyenne CV)**
 
 ```
 height       : -1.3614
@@ -230,7 +230,7 @@ velocity_exp2: -0.0540
 intercept    : 126.0592
 ```
 
-### **🌦️ Coefficients météo**
+### ** Coefficients météo**
 
 ```
 clear : 1.0385
@@ -238,7 +238,7 @@ night : 1.0008
 rain  : 0.9681
 ```
 
-### **🧠 Biais comportementaux (Model V2)**
+### ** Biais comportementaux (Model V2)**
 
 ```
 clear : mu=0.0386, sigma=1.0008
@@ -246,7 +246,7 @@ rain  : mu=0.0006, sigma=0.7211
 night : mu=0.0007, sigma=0.9393
 ```
 
-### **📊 Performances — Sans biais**
+### ** Performances — Sans biais**
 
 ```
 MAE   : 0.7310
@@ -256,7 +256,7 @@ ME    : -0.0089
 STD   : 0.9488
 ```
 
-### **📊 Performances — Modèle final avec biais (Version conservatrice)**
+### ** Performances — Modèle final avec biais (Version conservatrice)**
 
 ```
 MAE   : 1.7770
@@ -266,12 +266,12 @@ ME    : 1.7374
 STD   : 1.0012
 ```
 
-ℹ️ Le modèle **avec biais** n’a pas pour objectif d’optimiser les métriques classiques :
+Le modèle **avec biais** n’a pas pour objectif d’optimiser les métriques classiques :
 il est volontairement **prudent** et **sécuritaire** (prévoit moins longtemps la possibilité de traverser).
 
 ---
 
-# 🔧 Paramètres d’entraînement
+# Paramètres d’entraînement
 
 | Paramètre             | Valeur | Rôle                |
 | --------------------- | ------ | ------------------- |
@@ -284,7 +284,7 @@ il est volontairement **prudent** et **sécuritaire** (prévoit moins longtemps 
 
 ---
 
-# 🔄 Pipeline d’utilisation
+# Pipeline d’utilisation
 
 ## **1. Vérifier l’emplacement des données**
 
@@ -312,7 +312,7 @@ model/
 
 ---
 
-# 📌 Notes importantes
+# Notes importantes
 
 * Ce dossier **ne modifie jamais les données** (lecture seule).
 * Le script `train.py` assure la **reproductibilité totale** du pipeline.

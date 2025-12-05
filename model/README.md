@@ -1,4 +1,4 @@
-# 📘 *Pedestrian-Crossing Behavior – Model Pipeline*
+# *Pedestrian-Crossing Behavior – Model Pipeline*
 
 ### **README global du dossier `model/`**
 
@@ -23,7 +23,7 @@ Ce README sert de vue d’ensemble et redirige vers la documentation détaillée
 
 ---
 
-# 📑 **SOMMAIRE**
+# **SOMMAIRE**
 
 1. [Objectif général](#objectif-général)
 2. [Architecture complète du dossier](#architecture-complète-du-dossier)
@@ -34,7 +34,7 @@ Ce README sert de vue d’ensemble et redirige vers la documentation détaillée
 
 ---
 
-# 🎯 **Objectif général**
+# **Objectif général**
 
 Le dossier `model/` contient **tout ce qui permet de construire, analyser, tester et exporter** le modèle comportemental *Pedestrian Crossing Prediction* basé sur :
 
@@ -50,7 +50,7 @@ $$
 
 ---
 
-# 🏗️ **Architecture complète du dossier**
+# **Architecture complète du dossier**
 
 ```txt
 model/
@@ -64,11 +64,11 @@ model/
 
 ---
 
-# 📂 **Description des sous-dossiers**
+# **Description des sous-dossiers**
 
 ---
 
-## 1️⃣ `model/data_analysis/` — Analyse des expériences VR (Exp1 & Exp2)
+## 1️ `model/data_analysis/` — Analyse des expériences VR (Exp1 & Exp2)
 
 Ce dossier contient les **deux notebooks d’analyse des expériences VR** :
 
@@ -81,10 +81,9 @@ Ils servent à :
 * produire les statistiques descriptives, tests, modèles mixtes,
 * générer les figures utilisées dans les chapitres résultats de la thèse.
 
-📄 Documentation détaillée :
-👉 [`data_analysis/README.md`](data_analysis/README.md)
+Documentation détaillée : [`data_analysis/README.md`](data_analysis/README.md)
 
-🌐 Exécution directe dans le navigateur (JupyterLite) :
+Exécution directe dans le navigateur (JupyterLite) :
 
 * **Expérience 1 – TTC**
   [![Launch Exp1](https://img.shields.io/badge/Open%20Exp1%20Notebook-%F0%9F%93%88-blue?style=for-the-badge)](https://sandravict0r.github.io/pedestrian-crossing-prediction/lab/index.html?path=data_analysis_exp1.ipynb)
@@ -94,7 +93,7 @@ Ils servent à :
 
 ---
 
-## 2️⃣ `model/data_visualization/` — Application Streamlit & figures descriptives
+## 2 `model/data_visualization/` — Application Streamlit & figures descriptives
 
 Ce dossier regroupe :
 
@@ -108,16 +107,15 @@ Il sert à :
 * reproduire les figures descriptives du manuscrit,
 * fournir une **interface interactive** pour les partenaires (Streamlit cloud / local).
 
-📄 Documentation détaillée :
-👉 [`data_visualization/README.md`](data_visualization/README.md)
+Documentation détaillée : [`data_visualization/README.md`](data_visualization/README.md)
 
-🌐 Application en ligne :
+Application en ligne :
 
 [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://pedestrian-crossing-prediction-vvnmvqnpb8g2wsdmparca8.streamlit.app/)
 
 ---
 
-## 3️⃣ `model/model_training/` — Construction du modèle analytique
+## 3 `model/model_training/` — Construction du modèle analytique
 
 Ce dossier contient :
 
@@ -134,15 +132,14 @@ Il permet de :
 * calibrer les biais (μ, σ) par météo,
 * exporter le modèle final dans `saved_models/final_model.yaml`.
 
-📄 Documentation détaillée :
-👉 [`model_training/README.md`](model_training/README.md)
+Documentation détaillée : [`model_training/README.md`](model_training/README.md)
 
-🌐 Version JupyterLite :
+Version JupyterLite :
 [![Open Model Training](https://img.shields.io/badge/Open%20Model%20Notebook-%F0%9F%93%88-blue?style=for-the-badge)](https://sandravict0r.github.io/pedestrian-crossing-prediction/lab/index.html?path=model.ipynb)
 
 ---
 
-## 4️⃣ `model/model_evaluation/` — Performance & interprétabilité
+## 4`model/model_evaluation/` — Performance & interprétabilité
 
 Ce dossier contient deux notebooks complémentaires :
 
@@ -154,10 +151,9 @@ Ce dossier contient deux notebooks complémentaires :
   → résidus, normalité, binned trends, comparaison prédiction brute vs ajustée,
   → erreurs par taille, vitesse, météo (boxplots + stats descriptives).
 
-📄 Documentation détaillée :
-👉 [`model_evaluation/README.md`](model_evaluation/README.md)
+Documentation détaillée :[`model_evaluation/README.md`](model_evaluation/README.md)
 
-🌐 Exécution JupyterLite :
+ Exécution JupyterLite :
 
 * **Behavior Analysis**
   [![Model Behavior Analysis](https://img.shields.io/badge/Behavior%20Analysis-%F0%9F%93%88-blue?style=for-the-badge)](https://sandravict0r.github.io/pedestrian-crossing-prediction/lab/index.html?path=model/model_evaluation/model_behavior_analysis.ipynb)
@@ -167,7 +163,7 @@ Ce dossier contient deux notebooks complémentaires :
 
 ---
 
-## 5️⃣ `model/saved_models/` — Modèle final + script d’inférence
+## 5 `model/saved_models/` — Modèle final + script d’inférence
 
 Ce dossier contient :
 
@@ -184,12 +180,11 @@ Ce dossier contient :
   * calculer `TTC_real(distance)`,
   * décider si le piéton traverse (`True`) ou non (`False`).
 
-📄 Documentation détaillée :
-👉 [`saved_models/README.md`](saved_models/README.md)
+Documentation détaillée : [`saved_models/README.md`](saved_models/README.md)
 
 ---
 
-# 🔁 **Pipeline global du modèle (processed → model → decision)**
+# **Pipeline global du modèle (processed → model → decision)**
 
 Vue d’ensemble depuis les CSV propres jusqu’à la décision finale :
 
@@ -210,7 +205,7 @@ I --> J["Évaluation & Interprétabilité<br/>model_evaluation/"]
 
 ---
 
-# 🔗 **Relations entre data processed, exploration, entraînement et modèle final**
+#  **Relations entre data processed, exploration, entraînement et modèle final**
 
 * **`data/processed/`**
   → fournit les 9 CSV finaux (météo × vitesse) pour **tous** les notebooks/scripts du dossier `model/`.
@@ -235,7 +230,7 @@ I --> J["Évaluation & Interprétabilité<br/>model_evaluation/"]
 
 ---
 
-# 🌐 **Vue globale : liens vers tous les README internes**
+# **Vue globale : liens vers tous les README internes**
 
 | Dossier                 | Documentation                                                     |
 | ----------------------- | ----------------------------------------------------------------- |

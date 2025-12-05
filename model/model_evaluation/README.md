@@ -1,4 +1,4 @@
-# 📁 `model_evaluation/` — README
+# `model_evaluation/` — README
 
 *Analyses comportementales & validation du modèle analytique final*
 
@@ -10,25 +10,25 @@ Les analyses reposent sur :
 * les données VR prétraitées,
 * les sorties du pipeline de modélisation (performances, résidus, effets météo, etc.).
 
-Les notebooks sont directement accessibles via **JupyterLite** 👇
+Les notebooks sont directement accessibles via **JupyterLite** 
 
 ---
 
-## 🚀 Ouvrir les notebooks dans JupyterLite
+## Ouvrir les notebooks dans JupyterLite
 
-### 🔹 Analyse comportementale (XAI)
+### Analyse comportementale (XAI)
 
 [![Launch Model Behavior Analysis](https://img.shields.io/badge/Open%20Behavior%20Analysis-%F0%9F%93%88-blue?style=for-the-badge)](https://sandravict0r.github.io/pedestrian-crossing-prediction/lab/index.html?path=model/model_evaluation/model_behavior_analysis.ipynb)
 
 ---
 
-### 🔹 Analyse de performance & validation
+### Analyse de performance & validation
 
 [![Launch Model Performance Analysis](https://img.shields.io/badge/Open%20Performance%20Analysis-%F0%9F%93%8A-green?style=for-the-badge)](https://sandravict0r.github.io/pedestrian-crossing-prediction/lab/index.html?path=model/model_evaluation/model_performance_analysis.ipynb)
 
 ---
 
-# 📁 Contenu du dossier
+# Contenu du dossier
 
 ```
 model/
@@ -40,7 +40,7 @@ model/
 
 ---
 
-# 1. 🎯 Objectifs des notebooks
+# 1. Objectifs des notebooks
 
 ## **1.1. model_behavior_analysis.ipynb**
 
@@ -61,7 +61,7 @@ Ce notebook fournit :
   * hauteur du piéton
   * météo
 
-### ✔️ Questions auxquelles répond ce notebook
+### Questions auxquelles répond ce notebook
 
 * Comment le modèle décide-t-il d’une traversée ?
 * Quels facteurs modifient la frontière décisionnelle ?
@@ -99,7 +99,7 @@ Il implémente et explore :
   * vitesse du véhicule
   * météo
 
-### ✔️ Questions auxquelles répond ce notebook
+### Questions auxquelles répond ce notebook
 
 * Le modèle estime-t-il correctement le seuil décisionnel T_end ?
 * Quelle est la marge d’erreur selon la météo ?
@@ -109,7 +109,7 @@ Il implémente et explore :
 
 ---
 
-# 2. 🔬 Résumé scientifique du pipeline d’évaluation
+# 2. Résumé scientifique du pipeline d’évaluation
 
 Le modèle analytique final prédit un seuil comportemental minimal :
 
@@ -142,7 +142,7 @@ Les notebooks permettent de :
 
 ---
 
-# 3. 📈 Visualisations clés produites
+# 3. Visualisations clés produites
 
 * Heatmaps décisionnelles 2D
 * PCA : structure globale du modèle
@@ -155,7 +155,7 @@ Les notebooks permettent de :
 
 ---
 
-# 4. 🧪 Reproductibilité
+# 4. Reproductibilité
 
 Les notebooks nécessitent :
 

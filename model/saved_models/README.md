@@ -1,6 +1,6 @@
-# 📁 `saved_models/` — README
+# `saved_models/` — README
 
-## 🎯 Objectif du dossier
+## Objectif du dossier
 
 Le dossier **`saved_models/`** contient les artefacts finaux du **modèle analytique de prédiction du seuil minimal de non-traversée** développé dans la thèse.
 
@@ -20,7 +20,7 @@ Ce dossier constitue **la couche d’inférence** du projet, indépendante de l�
 
 ---
 
-# 📦 Structure du dossier
+# Structure du dossier
 
 ```
 saved_models/
@@ -30,7 +30,7 @@ saved_models/
 
 ---
 
-# 🧠 Contenu de `final_model.yaml`
+# Contenu de `final_model.yaml`
 
 Le fichier contient **tous les paramètres nécessaires** pour reproduire le modèle final.
 
@@ -58,9 +58,9 @@ coefficients_global:
 
 Ils définissent :
 
-[
+$$
 T_{\text{pred}} = a h + b h^2 + c v + \text{intercept}
-]
+$$
 
 ## **3. Paramètres météo**
 
@@ -104,13 +104,13 @@ Cette section est informative mais non utilisée par `CNRS_behavior_model.py`.
 
 ---
 
-# 🧩 Fonctionnement de `CNRS_behavior_model.py`
+# Fonctionnement de `CNRS_behavior_model.py`
 
 Le module Python fournit :
 
 ###  Chargement automatique du YAML
 
-→ via `_load_yaml()` (cache interne), aucune dépendance externe.
+via `_load_yaml()` (cache interne), aucune dépendance externe.
 
 ###  Extraction des paramètres
 
@@ -134,7 +134,7 @@ T_{\text{end}} =
 - \mu
   $$
 
-### ✔️ Décision de traversée
+### Décision de traversée
 
 ```python
 decision, T_end, TTC_real = crossing_decision(
@@ -193,7 +193,7 @@ Traverse ? False
 
 ---
 
-# 🖥️ Exemple d’utilisation en ligne de commande (CLI intégré)
+# Exemple d’utilisation en ligne de commande (CLI intégré)
 
 Le module peut être utilisé directement :
 
@@ -217,7 +217,7 @@ Decision      : False  (True = cross)
 
 ---
 
-# 📌 Notes importantes
+# Notes importantes
 
 * `final_model.yaml` doit rester **dans le même dossier** que `CNRS_behavior_model.py`.
 * Le modèle utilise uniquement **height, velocity_kmh, météo et distance**.

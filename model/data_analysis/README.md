@@ -1,4 +1,4 @@
-# 📘 *VR Experiment Analysis* — README
+# *VR Experiment Analysis* — README
 
 ### `data_analysis_exp1.ipynb` & `data_analysis_exp2.ipynb`
 
@@ -6,7 +6,7 @@ Ce dossier regroupe les deux notebooks d’analyse utilisés pour extraire, visu
 
 ---
 
-# 🎯 Objectif global
+# Objectif global
 
 Ces notebooks permettent d’explorer :
 
@@ -17,11 +17,11 @@ Ils fournissent toutes les figures, statistiques et vérifications nécessaires 
 
 ---
 
-# 📁 Les deux notebooks
+# Contenus
 
 ---
 
-## 1️⃣ `data_analysis_exp1.ipynb` — *Perception du TTC*
+## 1️ `data_analysis_exp1.ipynb` — *Perception du TTC*
 
 ### Objectif
 
@@ -57,7 +57,7 @@ Analyser comment les participants estiment le **TTC** (Time-To-Collision) lorsqu
 
 ---
 
-## 2️⃣ `data_analysis_exp2.ipynb` — *Décision de traversée*
+## 2 `data_analysis_exp2.ipynb` — *Décision de traversée*
 
 ### Objectif
 
@@ -102,7 +102,7 @@ Analyser comment les participants évaluent **leur capacité à traverser** avan
 
 ---
 
-# 🧪 Complémentarité des deux notebooks
+# Complémentarité des deux notebooks
 
 | Analyse                          | Expérience 1        | Expérience 2               |
 | -------------------------------- | ------------------- | -------------------------- |
@@ -115,17 +115,17 @@ Analyser comment les participants évaluent **leur capacité à traverser** avan
 
 ---
 
-# 🌐 Exécuter les notebooks dans votre navigateur (JupyterLite)
+# Exécuter les notebooks dans votre navigateur (JupyterLite)
 
-## 🧠 Notebook Expérience 1
+## Notebook Expérience 1
 [![Launch Exp1](https://img.shields.io/badge/Open%20Exp1%20Notebook-%F0%9F%93%88-blue?style=for-the-badge)](https://sandravict0r.github.io/pedestrian-crossing-prediction/lab/index.html?path=data_analysis_exp1.ipynb)
 
-## 🧠 Notebook Expérience 2
+## Notebook Expérience 2
 
 [![Launch Exp2](https://img.shields.io/badge/Open%20Exp2%20Notebook-%F0%9F%96%A5%EF%B8%8F-purple?style=for-the-badge)](https://sandravict0r.github.io/pedestrian-crossing-prediction/lab/index.html?path=data_analysis_exp2.ipynb)
 ---
 
-# 🛠 Pré-requis techniques
+# Pré-requis techniques
 
 Les notebooks nécessitent :
 

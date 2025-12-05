@@ -1,9 +1,9 @@
 
-# 📘 **BPI_Dataset — Scripts d’annotation & résultats du modèle**
+#  **BPI_Dataset — Scripts d’annotation & résultats du modèle**
 
 *(Ce dépôt ne contient pas les données brutes du BPI Dataset)*
 
-## 1. 🎯 **Objectif du dossier**
+## 1.  **Objectif du dossier**
 
 Ce dossier rassemble :
 
@@ -15,7 +15,7 @@ Ce dossier rassemble :
 
 ---
 
-# 2. 📦 Contenu réel du dépôt
+# 2.  Contenu réel du dépôt
 
 ```
 BPI/
@@ -44,7 +44,7 @@ BPI/
 
 ---
 
-# 3. 📥 Comment obtenir les données du BPI Dataset (obligatoire si vous voulez réexécuter les scripts)
+# 3.  Comment obtenir les données du BPI Dataset (obligatoire si vous voulez réexécuter les scripts)
 
 Les données originales doivent être téléchargées depuis le dépôt officiel :
 
@@ -60,7 +60,7 @@ Vous y trouverez :
 
 ---
 
-# 4. 📂 Organisation attendue pour réexécuter le pipeline
+# 4.  Organisation attendue pour réexécuter le pipeline
 
 Si vous souhaitez reproduire les annotations, vous devez reconstruire localement la structure suivante :
 
@@ -85,7 +85,7 @@ Ensuite, les scripts présents dans TON repo peuvent être utilisés pour géné
 
 ---
 
-# 5. 🧰 Description des scripts fournis
+# 5.  Description des scripts fournis
 
 ### **1) `annotate_crossing.py`**
 
@@ -155,7 +155,7 @@ Affiche :
 
 ---
 
-# 6. 🧪 Reproduire l’annotation (optionnel)
+# 6.  Reproduire l’annotation (optionnel)
 
 Une fois les données et CSV d’origine récupérés :
 
@@ -185,7 +185,7 @@ python visualize_crossing.py
 
 ---
 
-# 7. 📝 Format des fichiers annotés
+# 7.  Format des fichiers annotés
 
 Chaque `.csv` contient :
 

@@ -1,4 +1,4 @@
-# 📘 *Pedestrian-Crossing Behavior – Data Pipeline*
+# *Pedestrian-Crossing Behavior – Data Pipeline*
 
 ### **README global du dossier `data/`**
 
@@ -23,7 +23,7 @@ Ce README présente une vue d’ensemble et redirige vers la documentation déta
 
 ---
 
-# 📑 **SOMMAIRE**
+# **SOMMAIRE**
 
 1. [Objectif général](#objectif-général)
 2. [Architecture complète du dossier](#architecture-complète-du-dossier)
@@ -35,7 +35,7 @@ Ce README présente une vue d’ensemble et redirige vers la documentation déta
 ---
 
 
-# 🏗️ **Architecture complète du dossier**
+# **Architecture complète du dossier**
 
 ```
 data/
@@ -48,21 +48,20 @@ data/
 
 ---
 
-# 📂 **Description des sous-dossiers**
+# **Description des sous-dossiers**
 
 ---
 
-## 1️⃣ `data/raw/` — Données VR brutes
+## 1️ `data/raw/` — Données VR brutes
 
 Contient **tous les enregistrements VR** : `cars.csv`, `peds.csv`, `gaze.csv`,
 organisés par participant / expérience / trial.
 
-📄 Documentation :
-👉 [`raw/README.md`](raw/README.md)
+ Documentation : [`raw/README.md`](raw/README.md)
 
 ---
 
-## 2️⃣ `data/questionnaires/` — Formulaires bruts
+## 2️ `data/questionnaires/` — Formulaires bruts
 
 Regroupe :
 
@@ -70,15 +69,14 @@ Regroupe :
 * **informations personnelles**
 * **questionnaire de perception**
 
-📄 Documentation :
-👉 [`questionnaires/README.md`](questionnaires/README.md)
+Documentation : [`questionnaires/README.md`](questionnaires/README.md)
 
-📌 **Note :**
+ **Note :**
 `participant.csv` = **fusion** automatique de `perception_form.csv` + `consent_form.csv`.
 
 ---
 
-## 3️⃣ `data/database/` — Pipeline SQL complet
+## 3 `data/database/` — Pipeline SQL complet
 
 Ce dossier contient :
 
@@ -86,32 +84,29 @@ Ce dossier contient :
 * scripts Python : insertion VR + participant + perception
 * fichier `.env` (non versionné)
 
-📄 Documentation :
-👉 [`database/README.md`](database/README.md)
+Documentation : [`database/README.md`](database/README.md)
 
 Sous-documents :
 
-* Python → [`database/python/README.md`](database/python/README.md)
-* SQL → [`database/sql/README.md`](database/sql/README.md)
+* Python : [`database/python/README.md`](database/python/README.md)
+* SQL : [`database/sql/README.md`](database/sql/README.md)
 
 ---
 
-## 4️⃣ `data/processed/` — CSV propres pour la modélisation
+## 4 `data/processed/` — CSV propres pour la modélisation
 
 Contient les **9 jeux de données finaux**, séparés par :
 
 * météo (`clear`, `rain`, `night`)
 * vitesse (`low`, `medium`, `high`)
 
-📄 Documentation :
-👉 [`processed/README.md`](processed/README.md)
+Documentation : [`processed/README.md`](processed/README.md)
 
-Ces fichiers alimentent directement le dossier :
-👉 `model/`
+Ces fichiers alimentent directement le dossier : `model/`
 
 ---
 
-# 🔁 **Pipeline global des données (raw → processed)**
+# **Pipeline global des données **
 
 ```
 data/raw/
@@ -131,7 +126,7 @@ model/  (entraînement ML)
 
 ---
 
-# 🔗 **Relations entre données VR, questionnaires et MySQL**
+# **Relations entre données VR, questionnaires et MySQL**
 
 ### • `questionnaires/`
 
@@ -158,14 +153,14 @@ model/  (entraînement ML)
 
 ---
 
-# 🌐 **Vue globale : liens vers tous les README internes**
+#  **Vue globale : liens vers tous les README internes**
 
 | Dossier            | Documentation                                               |
 | ------------------ | ----------------------------------------------------------- |
-| VR Brutes          | 👉 [`raw/README.md`](raw/README.md)                         |
-| Questionnaires     | 👉 [`questionnaires/README.md`](questionnaires/README.md)   |
-| Base SQL globale   | 👉 [`database/README.md`](database/README.md)               |
-| Scripts Python SQL | 👉 [`database/python/README.md`](database/python/README.md) |
-| Scripts SQL        | 👉 [`database/sql/README.md`](database/sql/README.md)       |
-| CSV finaux         | 👉 [`processed/README.md`](processed/README.md)             |
+| VR Brutes          |  [`raw/README.md`](raw/README.md)                         |
+| Questionnaires     |  [`questionnaires/README.md`](questionnaires/README.md)   |
+| Base SQL globale   |  [`database/README.md`](database/README.md)               |
+| Scripts Python SQL |  [`database/python/README.md`](database/python/README.md) |
+| Scripts SQL        |  [`database/sql/README.md`](database/sql/README.md)       |
+| CSV finaux         |  [`processed/README.md`](processed/README.md)             |
 

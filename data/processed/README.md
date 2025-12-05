@@ -1,6 +1,6 @@
-# 📁 `data/processed/` — README
+# `data/processed/` — README
 
-## 🎯 Objectif du dossier
+## Objectif du dossier
 
 Ce dossier contient **les jeux de données nettoyés, structurés et prêts pour l’analyse ou l’entraînement des modèles**.
 
@@ -14,7 +14,7 @@ Ils constituent **la source unique fiable** pour toute analyse scientifique.
 
 ---
 
-# 📂 Contenu
+#  Contenu
 
 ```
 processed/
@@ -33,31 +33,29 @@ Chacun de ces fichiers représente :
 
 * une **condition météo** (`clear`, `rain`, `night`)
 * × une **catégorie de vitesse** (`low`, `medium`, `high`)
-
-📌 **Chaque CSV regroupe tous les participants + tous les essais valides** correspondant à cette condition.
+ **Chaque CSV regroupe tous les participants + tous les essais valides** correspondant à cette condition.
 
 ---
 
-# ▶️ Utilisation des fichiers
+# Utilisation des fichiers
 
 Ces CSV sont utilisés pour :
 
-### 🔹 **Modélisation en Python (entraînement + évaluation)**
+### **Modélisation en Python (entraînement + évaluation)**
+ Les scripts de modélisation se trouvent dans :
+ [`model/`](../../model/)
 
-👉 Les scripts de modélisation se trouvent dans :
-➡️ [`model/`](../../model/)
-
-### 🔹 Analyses comportementales
+### Analyses comportementales
 
 Distances perçues, distances réelles, TTC estimé, Safety Margins…
 
-### 🔹 Visualisations scientifiques
+### Visualisations scientifiques
 
 Boîtes à moustaches, distributions, heatmaps, analysis per météo / vitesse…
 
 ---
 
-# 📌 Notes importantes
+# Notes importantes
 
 * Les fichiers ici sont **propres, complets et prêts à être utilisés**.
 * **Aucune donnée brute** ne doit être placée ici.

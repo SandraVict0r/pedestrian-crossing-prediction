@@ -1,6 +1,6 @@
-# 📁 `data/database/` — README
+# `data/database/` — README
 
-## 🎯 Objectif du dossier
+## Objectif du dossier
 
 Le dossier **`data/database/`** regroupe tous les éléments nécessaires pour :
 
@@ -9,13 +9,9 @@ Le dossier **`data/database/`** regroupe tous les éléments nécessaires pour :
 3. **Nettoyer la base** (suppression d’outliers).
 4. **Générer la table finale** utilisée pour produire les CSV propres dans `data/processed/`.
 
-Ce dossier constitue l’étape centrale du pipeline :
-
-📥 `data/raw/` → **Base MySQL** → 📤 `data/processed/`
-
 ---
 
-## 📦 Structure du dossier
+##  Structure du dossier
 
 ```
 database/
@@ -24,13 +20,13 @@ database/
  ┗ README.md ← (ce fichier)
 ```
 
-### 🔗 Sous-README détaillés
+###  Sous-README détaillés
 
-* 🐍 Scripts Python : [`python/README.md`](./python/README.md)
-* 🗄️ Scripts SQL : [`sql/README.md`](./sql/README.md)
+*  Scripts Python : [`python/README.md`](./python/README.md)
+*  Scripts SQL : [`sql/README.md`](./sql/README.md)
 
 
-## 🧩 Modèle conceptuel de données (UML)
+##  Modèle conceptuel de données (UML)
 
 La base MySQL utilisée pour structurer les données VR repose sur un modèle relationnel simple, organisé autour des entités suivantes :
 
@@ -44,7 +40,7 @@ La base MySQL utilisée pour structurer les données VR repose sur un modèle re
 
 Les relations assurent la cohérence entre les données brutes, les paramètres expérimentaux et les observations des participants.
 
-### 📊 **Diagramme UML de la base MySQL**
+###  **Diagramme UML de la base MySQL**
 
 ![UML schema of MySQL database](/data/img/uml_diagram.png)
 
@@ -57,9 +53,9 @@ Ce diagramme montre :
 
 ---
 
-# 🧠 Rôle des sous-dossiers
+#  Rôle des sous-dossiers
 
-## 📁 `python/` — Insertion automatique des données
+##  `python/` — Insertion automatique des données
 
 Ce dossier contient :
 
@@ -76,7 +72,7 @@ Ces scripts :
 
 ---
 
-## 📁 `sql/` — Construction + nettoyage + extraction finale
+##  `sql/` — Construction + nettoyage + extraction finale
 
 Contient :
 
@@ -86,7 +82,7 @@ Contient :
 
 ---
 
-# 🔄 Pipeline d’utilisation (vue d’ensemble)
+#  Pipeline d’utilisation (vue d’ensemble)
 
 1. **Créer la base** via `bdd_creator.sql`
 2. **Configurer `.env`** (connexion MySQL)
@@ -95,11 +91,11 @@ Contient :
 5. **Générer la table finale** (`model_datas_request.sql`)
 6. **Exporter en CSV** dans `data/processed/`
 
-👉 Les instructions détaillées sont disponibles dans les sous-README.
+Les instructions détaillées sont disponibles dans les sous-README.
 
 ---
 
-# 📌 Notes
+#  Notes
 
 * `.env` ne doit jamais être versionné.
 * L’exécution SQL peut se faire via MySQL Workbench ou CLI.

@@ -1,19 +1,6 @@
-Parfait — ton README est **déjà propre, clair et bien structuré**.
-Je te propose **quelques améliorations ciblées**, pour :
+#  `data/database/sql/` — README
 
-* corriger 2–3 imprécisions,
-* clarifier le pipeline,
-* harmoniser la nomenclature,
-* ajouter les liens cliquables cohérents avec l’arborescence que tu as maintenant,
-* et renforcer la cohérence entre SQL ↔ Python ↔ processed data.
-
-Voici la **version optimisée** (tu peux remplacer ton README directement avec) :
-
----
-
-# 📁 `data/database/sql/` — README
-
-## 📌 Objectif du dossier
+##  Objectif du dossier
 
 Ce dossier contient **tous les scripts SQL utilisés pour construire la base de données MySQL du projet**, nettoyer certaines données et générer le tableau final utilisé pour l'entraînement des modèles de prédiction du comportement de traversée.
 
@@ -25,7 +12,7 @@ Ces scripts sont exécutés :
 
 ---
 
-## 📂 Contenu du dossier
+##  Contenu du dossier
 
 ```
 sql/
@@ -59,7 +46,7 @@ Script **principal** pour initialiser la base de données :
   * vitesses + catégories (`low`, `medium`, `high`)
   * distances + catégories (`pair`, `odd`)
 
-👉 **Ce script doit être exécuté en premier lors d’une reconstruction complète.**
+**Ce script doit être exécuté en premier lors d’une reconstruction complète.**
 
 ---
 
@@ -74,7 +61,7 @@ Il supprime :
 * les entrées correspondantes dans `Crossing`
 * le participant dans `Participant`
 
-⚠️ **Important : ce script est indispensable pour garantir que seuls les essais valides sont conservés.**
+**Important : ce script est indispensable pour garantir que seuls les essais valides sont conservés.**
 
 ---
 
@@ -90,21 +77,21 @@ Script qui produit une **vue tabulaire complète**, incluant :
 * variables dérivées
 * **moyennes des Safety Distances** (par vitesse / météo / participant)
 
-🎯 Ce script génère **le tableau final utilisé pour entraîner les modèles ML**.
+Ce script génère **le tableau final utilisé pour entraîner les modèles ML**.
 
 ---
 
-## 📤 Export CSV
+##  Export CSV
 
 Une fois la requête exécutée, la table finale doit être exportée en CSV dans :
 
-👉 [`data/processed/`](../../processed/)
+[`data/processed/`](../../processed/)
 
 C’est ici que se trouvent **tous les jeux de données propres et prêts pour l’entraînement**.
 
 ---
 
-# 🔗 Dépendances
+#  Dépendances
 
 Ces scripts SQL fonctionnent conjointement avec les scripts Python du dossier :
 
@@ -119,11 +106,11 @@ Les scripts Python :
 * génèrent les séquences de crossing (exp2)
 * insèrent toutes les valeurs expérimentales dans MySQL via `db_utils.py`
 
-⚙️ Ils doivent être exécutés **juste après `bdd_creator.sql`**.
+Ils doivent être exécutés **juste après `bdd_creator.sql`**.
 
 ---
 
-# 📌 Pipeline d’utilisation (ordre recommandé)
+#  Pipeline d’utilisation (ordre recommandé)
 
 1. **Créer la base**
 

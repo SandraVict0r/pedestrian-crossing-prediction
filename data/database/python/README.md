@@ -1,6 +1,6 @@
-# 📁 `data/database/python/` — README
+# `data/database/python/` — README
 
-## 🎯 Objectif du dossier
+## Objectif du dossier
 
 Ce dossier contient l’ensemble des **scripts Python utilisés pour insérer les données expérimentales** (VR exp1 & exp2, participants, perceptions et crossing sequences) dans la base MySQL construite via les scripts SQL du dossier parent.
 
@@ -8,7 +8,7 @@ Ces scripts constituent **le pipeline d’import automatique** des données brut
 
 ---
 
-## 📂 Contenu du dossier
+## Contenu du dossier
 
 ```
 python/
@@ -33,7 +33,7 @@ DB_PASSWORD=...
 DB_NAME=main_experiment
 ```
 
-⚠️ **Ne jamais versionner ce fichier sur GitHub** (sécurité).
+**Ne jamais versionner ce fichier sur GitHub** (sécurité).
 Ajouter `.env` au `.gitignore`.
 
 ---
@@ -101,7 +101,7 @@ Il doit être exécuté **après** `insert_perception_experiment_data_to_mysql.p
 
 ---
 
-# ▶️ Pipeline d’exécution recommandé
+# Pipeline d’exécution recommandé
 
 1. **Créer la base**
 

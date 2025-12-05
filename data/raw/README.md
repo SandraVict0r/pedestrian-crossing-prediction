@@ -1,4 +1,4 @@
-# 📁 `data/raw/` — README
+# `data/raw/` — README
 
 
 Le dossier **`data/raw/`** contient **l’ensemble des données brutes collectées dans l’environnement VR** pour les deux expériences du protocole :
@@ -15,7 +15,7 @@ Ils sont utilisés :
 
 ---
 
-# 📂 Structure générale
+# Structure générale
 
 Chaque participant possède un dossier nommé :
 
@@ -55,9 +55,9 @@ data/raw/
 
 ---
 
-# 🧩 Description des fichiers expérimentaux
+# Description des fichiers expérimentaux
 
-## 1️⃣ `cars.csv` — Trajectoire du véhicule
+## 1️ `cars.csv` — Trajectoire du véhicule
 
 Contient l’état de la voiture à chaque frame.
 
@@ -73,7 +73,7 @@ Contient l’état de la voiture à chaque frame.
 
 ---
 
-## 2️⃣ `gaze.csv` — Données du regard
+## 2 `gaze.csv` — Données du regard
 
 Contient les données du suivi oculaire du participant.
 
@@ -88,7 +88,7 @@ Contient les données du suivi oculaire du participant.
 
 ---
 
-## 3️⃣ `peds.csv` — Position du piéton
+## 3 `peds.csv` — Position du piéton
 
 Données de déplacement du participant dans l’environnement VR.
 
@@ -101,7 +101,7 @@ Données de déplacement du participant dans l’environnement VR.
 
 ---
 
-## 4️⃣ Fichiers `.xlsx` — Log des commandes Exp1 / Exp2
+## 4 Fichiers `.xlsx` — Log des commandes Exp1 / Exp2
 
 Deux fichiers par participant :
 
@@ -122,7 +122,7 @@ Contiennent :
 | `Rain (-r)`, `Cloud (-c)`, `Light (-l)` | flags environnement                             |
 | `Command`                               | ligne de commande utilisée pour générer l’essai |
 
-🎯 **Utilisation** :
+**Utilisation** :
 
 * récupération des paramètres expérimentaux
 * insertion dans la table SQL `DistanceDisappearance` & `Velocity`
@@ -130,13 +130,13 @@ Contiennent :
 
 ---
 
-# 🔄 Pipeline d’utilisation des fichiers bruts
+# Pipeline d’utilisation des fichiers bruts
 
 ### Ces fichiers sont consommés par :
 
 ### 1. Les scripts Python :
 
-📌 [`data/database/python/`](../database/python/README.md)
+[`data/database/python/`](../database/python/README.md)
 
 * insertion participants → `Participant`
 * reconstruction perception exp1 → `Perception`
@@ -144,18 +144,18 @@ Contiennent :
 
 ### 2. Les scripts SQL :
 
-📌 [`data/database/sql/`](../database/sql/README.md)
+[`data/database/sql/`](../database/sql/README.md)
 
 * nettoyage (`bad_datas_to_remove.sql`)
 * génération du dataset final ML (`model_datas_request.sql`)
 
 ### 3. Export du dataset final vers :
 
-📦 `data/processed/` (CSV propres)
+`data/processed/` (CSV propres)
 
 ---
 
-# 🧼 Recommandations
+#  Recommandations
 
 * **Ne jamais modifier** les fichiers dans `raw/`
 * Conserver la structure folder/participant/exp/trial exactement

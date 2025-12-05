@@ -1,6 +1,6 @@
-# 📁 `data/questionnaires/` — README
+# `data/questionnaires/` — README
 
-## 🎯 Objectif du dossier
+## Objectif du dossier
 
 Ce dossier contient **les trois fichiers de questionnaires nécessaires pour enrichir la base MySQL** avec les informations sur les participants :
 
@@ -11,11 +11,11 @@ Ce dossier contient **les trois fichiers de questionnaires nécessaires pour enr
 Ces fichiers sont les **versions brutes**, exportées depuis les formulaires utilisés pendant la collecte.
 Ils sont ensuite lus et insérés en base SQL par les scripts :
 
-👉 [`data/database/python/`](../database/python/README.md)
+[`data/database/python/`](../database/python/README.md)
 
 ---
 
-# 📂 Contenu du dossier
+# Contenu du dossier
 
 ```
 questionnaires/
@@ -26,11 +26,11 @@ questionnaires/
 
 ---
 
-# 📘 1. `participant.csv`
+#  1. `participant.csv`
 
 Contient **les informations principales de chaque participant**, utilisées pour remplir la table SQL `Participant`.
 
-### 🧱 Colonnes réelles :
+###  Colonnes réelles :
 
 | Colonne            | Description                                                                                   |
 | ------------------ | --------------------------------------------------------------------------------------------- |
@@ -43,7 +43,7 @@ Contient **les informations principales de chaque participant**, utilisées pour
 
 ---
 
-# 📙 2. `perception_form.csv`
+# 2. `perception_form.csv`
 
 Court questionnaire rempli avant Exp1, portant sur une **évaluation subjective**.
 
@@ -55,7 +55,7 @@ Court questionnaire rempli avant Exp1, portant sur une **évaluation subjective*
 
 ---
 
-# 📗 3. `consent_form.csv`
+# 3. `consent_form.csv`
 
 Contient **le consentement éclairé** et quelques métadonnées.
 
@@ -69,7 +69,7 @@ Contient **le consentement éclairé** et quelques métadonnées.
 
 ---
 
-## 🔄 Relation entre les fichiers (fusion)
+## Relation entre les fichiers (fusion)
 
 Les fichiers bruts :
 
@@ -80,7 +80,7 @@ contiennent chacun une partie des informations du participant.
 
 Le fichier :
 
-### 👉 **`participant.csv` est la version fusionnée et normalisée**, utilisée comme **référence unique** pour alimenter la base SQL.
+### **`participant.csv` est la version fusionnée et normalisée**, utilisée comme **référence unique** pour alimenter la base SQL.
 
 Il combine :
 
@@ -89,12 +89,11 @@ Il combine :
 * identifiant du participant
 
 Ce fichier est celui réellement utilisé par :
-
-👉 `insert_participant_data_to_mysql.py`
+ `insert_participant_data_to_mysql.py`
 
 ---
 
-# 🔗 Pipeline global
+# Pipeline global
 
 1. Le participant remplit les formulaires
 2. Les scripts Python extraient et valident les colonnes
@@ -104,7 +103,7 @@ Ce fichier est celui réellement utilisé par :
 
 ---
 
-# 🧼 Bonnes pratiques
+# Notes importantes
 
 * Ne pas modifier manuellement les CSV
 * Garder les fichiers tels qu’exportés
