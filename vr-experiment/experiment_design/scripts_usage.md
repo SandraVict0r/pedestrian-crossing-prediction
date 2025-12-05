@@ -1,28 +1,4 @@
-Voici un **README professionnel, clair, structuré**, adapté pour ton dossier :
-
-```
-vr_experiment/experiment_design/
-```
-
-Il explique entièrement :
-
-* le rôle des 4 scripts,
-* l’ordre d’exécution,
-* les précautions lors de la passation,
-* comment les lancer,
-* et inclut un lien direct vers `parameters_exposed_to_python.md`.
-
-Il est prêt à être copié-collé dans un fichier :
-
-```
-vr_experiment/experiment_design/scripts_usage.md
-```
-
-Tu peux changer le nom si tu préfères.
-
----
-
-# 📘 **README – Scripts de génération et d’exécution des trials**
+# **Scripts de génération et d’exécution des trials**
 
 ## VR Experiment — CARLA × Unreal Engine 5.3.2
 
@@ -38,12 +14,11 @@ Ces scripts sont situés dans :
 C:\Users\carlaue5.3\Documents\pedestrian-crossing-prediction\vr-experiment\scripts\
 ```
 
-Ils fonctionnent en combinaison avec la logique Unreal Engine décrite dans :
-👉 **`parameters_exposed_to_python.md`**
+Ils fonctionnent en combinaison avec la logique Unreal Engine décrite dans : [**`parameters_exposed_to_python.md`**](parameters_exposed_to_python.md)
 
 ---
 
-# 📂 **Liste des scripts**
+# **Liste des scripts**
 
 | Script                                          | Rôle                                                                                                | Expérience |
 | ----------------------------------------------- | --------------------------------------------------------------------------------------------------- | ---------- |
@@ -54,11 +29,11 @@ Ils fonctionnent en combinaison avec la logique Unreal Engine décrite dans :
 
 ---
 
-# 🧩 **1. Description détaillée des scripts**
+#  **1. Description détaillée des scripts**
 
 ---
 
-## 🔵 **`generate_participant_plan_exp1.py`**
+##  **`generate_participant_plan_exp1.py`**
 
 ### Objectif
 
@@ -71,7 +46,7 @@ Chaque commande correspond à :
 * un type de météo : *clear / night / rain*,
 * une position du player (0,1,2).
 
-👉 Résultat :
+Résultat :
 `participant_<ID>_commands_exp1.xlsx`
 
 ### Contenu de chaque ligne
@@ -90,7 +65,7 @@ py generate_participant_plan_exp1.py
 
 ---
 
-## 🔵 **`generate_participant_plan_exp2.py`**
+##  **`generate_participant_plan_exp2.py`**
 
 ### Objectif
 
@@ -101,7 +76,7 @@ Différence avec Exp 1 :
 * ici **un seul groupe de vitesses** est tiré aléatoirement pour tout le participant,
 * mais les météos et positions sont combinées avec toutes les vitesses du groupe.
 
-👉 Résultat :
+ Résultat :
 `participant_<ID>_commands_exp2.xlsx`
 
 ### Lancer le script
@@ -112,7 +87,7 @@ py generate_participant_plan_exp2.py
 
 ---
 
-## 🔵 **`run_trial.py`**
+##  **`run_trial.py`**
 
 *(ex `generate_one_car.py`, mais sans modifier ton code)*
 
@@ -124,7 +99,7 @@ Lance **un seul trial** en :
 2. définissant météo / position / vitesse selon les arguments,
 3. spawnant 3 “tokens” (véhicule, météo, player) utilisés par Unreal :
 
-   * voir 👉 `parameters_exposed_to_python.md`
+   * voir  [`parameters_exposed_to_python.md`](parameters_exposed_to_python.md)
 4. pilotant le véhicule jusqu’à disparition.
 
 ### Exemple d’appel (issu des fichiers Excel)
@@ -139,7 +114,7 @@ Unreal doit détecter la disparition du véhicule (condition de fin du trial).
 
 ---
 
-## 🔵 **`run_full_session.py`**
+##  **`run_full_session.py`**
 
 ### Objectif
 
@@ -152,9 +127,9 @@ Exécuter **les 27 trials** d’un participant à partir du fichier Excel géné
 3. Affiche le numéro du trial
 4. Attend une validation utilisateur entre chaque trial
 
-> 🛑 **Très important pour l’opérateur VR**
+>  **Très important pour l’opérateur VR**
 > Avant d'appuyer sur *Entrée* pour lancer le trial suivant :
-> 👉 **vérifier dans Unreal que la voiture a bien disparu**
+>  **vérifier dans Unreal que la voiture a bien disparu**
 > (sinon, interrompre avec `CTRL+C`, ajuster, puis reprendre au trial suivant)
 
 ### Lancer la session
@@ -163,11 +138,9 @@ Exécuter **les 27 trials** d’un participant à partir du fichier Excel géné
 py run_full_session.py
 ```
 
-*(en modifiant la première ligne du fichier pour indiquer le fichier Excel du participant)*
-
 ---
 
-# 🧭 **2. Ordre d’exécution complet (passation VR)**
+#  **2. Ordre d’exécution complet (passation VR)**
 
 1. **Générer les plans de passation**
 
@@ -196,26 +169,26 @@ py run_full_session.py
 
    * vérifier que CARLA/Unreal a correctement lancé la scène
    * une fois terminé :
-     👉 vérifier que la voiture a disparu
-     👉 appuyer sur *Entrée* pour passer au trial suivant
+     - vérifier que la voiture a disparu
+     - appuyer sur *Entrée* pour passer au trial suivant
 
 ---
 
-# ⚠️ **3. Points critiques à surveiller pendant la passation**
+#  **3. Points critiques à surveiller pendant la passation**
 
-### ✔ Vérifier que CARLA et Unreal sont bien connectés
+###  Vérifier que CARLA et Unreal sont bien connectés
 
 * CARLA doit tourner en mode *server*
-* Unreal doit être en mode PIE avec le niveau expérimental
+* Unreal doit être en mode VR preview
 
-### ✔ Ne jamais relancer Unreal entre deux trials
+###  Ne jamais relancer Unreal entre deux trials
 
 * cela casse la synchro des tokens
 * utiliser les pauses entre les trials pour corriger des problèmes
 
-### ✔ Toujours vérifier la disparition du véhicule avant d’appuyer sur Entrée
+###  Toujours vérifier la disparition du véhicule avant d’appuyer sur Entrée
 
-### ✔ Si un trial échoue
+###  Si un trial échoue
 
 * le script s’arrête automatiquement
 * relancer manuellement à partir du trial suivant
@@ -223,11 +196,11 @@ py run_full_session.py
 
 ---
 
-# 🔗 **4. Référence importante**
+#  **4. Référence importante**
 
 Pour comprendre **comment les variables Python (météo, position, vitesse)** sont interprétées par Unreal :
 
-👉 Voir : [parameters_exposed_to_python.md](./parameters_exposed_to_python.md)
+ Voir : [parameters_exposed_to_python.md](./parameters_exposed_to_python.md)
 
 
 Ce fichier décrit comment les Blueprints Unreal détectent les “tokens” spawnés par CARLA (véhicule, météo, player) afin d’activer les bonnes conditions visuelles et logiques.

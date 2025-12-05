@@ -1,10 +1,10 @@
-# 📄 **README — `experiment_design/`**
+#  **README — `experiment_design/`**
 
 Conception du plan d’expérience, paramètres transmis à Unreal Engine et règles de génération des fichiers Excel utilisés pour piloter les sessions VR.
 
 ---
 
-# 📌 1. Objectif du dossier
+#  1. Objectif du dossier
 
 Ce dossier contient :
 
@@ -20,7 +20,7 @@ Il sert de **référence conceptuelle** pour comprendre comment chaque trial est
 
 ---
 
-# 📌 2. Structure du dossier
+#  2. Structure du dossier
 
 ```
 experiment_design/
@@ -29,17 +29,17 @@ experiment_design/
 └── scripts_usage.md
 ```
 
-📄 **`parameters_exposed_to_python.md`**
+- **`parameters_exposed_to_python.md`**
 → décrit chaque paramètre transmis de Python à Unreal (via `run_trial.py`)
 
-📄 **`scripts_usage.md`**
+- **`scripts_usage.md`**
 → documentation des scripts de génération (`generate_participant_plan_exp1.py`, `...exp2.py`)
 
 ---
 
-# 📌 3. Résumé du plan d’expérience
+#  3. Résumé du plan d’expérience
 
-## 🧪 Expérience 1 — TTC Estimation Experiment
+##  Expérience 1 — TTC Estimation Experiment
 
 **Objectif :** le participant indique le moment où la voiture devrait arriver à sa hauteur (pression unique du trigger droit).
 
@@ -53,7 +53,7 @@ experiment_design/
 
 ---
 
-## 🧪 Expérience 2 — Crossing Decision Experiment
+##  Expérience 2 — Crossing Decision Experiment
 
 **Objectif :** le participant indique en continu s’il peut traverser (trigger gauche maintenu / relâché).
 
@@ -67,7 +67,7 @@ experiment_design/
 
 ---
 
-# 📌 4. Génération des plans participants (Excel)
+#  4. Génération des plans participants (Excel)
 
 Les scripts suivants créent automatiquement les fichiers Excel :
 
@@ -95,12 +95,12 @@ scripts/run_full_session.py
 
 ---
 
-# 📌 5. Paramètres réellement transmis à Unreal Engine
+#  5. Paramètres réellement transmis à Unreal Engine
 
 Ces paramètres proviennent **exclusivement** de `run_trial.py`.
 Il n’existe **pas** de paramètre `--experiment`.
 
-## 🎛️ Paramètres généraux CARLA
+##  Paramètres généraux CARLA
 
 | Paramètre    | CLI              | Exemple     | Description                  |
 | ------------ | ---------------- | ----------- | ---------------------------- |
@@ -117,7 +117,7 @@ Il n’existe **pas** de paramètre `--experiment`.
 
 ---
 
-## 🚗 Paramètres contrôlant le véhicule
+##  Paramètres contrôlant le véhicule
 
 | Paramètre           | CLI                                                            | Description |
 | ------------------- | -------------------------------------------------------------- | ----------- |
@@ -128,7 +128,7 @@ Il n’existe **pas** de paramètre `--experiment`.
 
 ---
 
-## 🌦️ Paramètres météo
+##  Paramètres météo
 
 Trois booleans simples (influencent aussi le type de véhicule) :
 
@@ -140,7 +140,7 @@ Trois booleans simples (influencent aussi le type de véhicule) :
 
 ---
 
-## 🧍 Paramètres du participant
+##  Paramètres du participant
 
 | Paramètre            | CLI      | Exemple |
 | -------------------- | -------- | ------- |
@@ -154,7 +154,7 @@ Trois booleans simples (influencent aussi le type de véhicule) :
 
 ---
 
-# 📌 6. Logique d’appel : run_full_session.py → run_trial.py
+#  6. Logique d’appel : run_full_session.py → run_trial.py
 
 Pour chaque ligne de l’Excel :
 
@@ -173,32 +173,26 @@ Puis :
 
 ---
 
-# 📌 7. Lien direct vers les fichiers
+##  7. Lien direct vers les fichiers
 
-🔗 **Paramètres exposés à Python**
-➡️ [`parameters_exposed_to_python.md`](./parameters_exposed_to_python.md)
+-  [**Paramètres exposés à Python**](./parameters_exposed_to_python.md)
 
-🔗 **Usage des scripts de génération et session**
-➡️ [`scripts_usage.md`](./scripts_usage.md)
+- [**Usage des scripts de génération et session**](./scripts_usage.md)
 
-🔗 **Détails du pipeline Unreal / VR**
-➡️ [`../unreal_project/README.md`](../unreal_project/README.md)
+- [**Détails du pipeline Unreal / VR**](../unreal_project/README.md)
 
-🔗 **Déroulement complet des expériences**
-➡️ [`../unreal_project/experience_flow.md`](../unreal_project/experience_flow.md)
+- [**Déroulement complet des expériences**](../unreal_project/experience_flow.md)
 
 ---
 
-# 📌 8. Notes et bonnes pratiques
+#  8. Notes et bonnes pratiques
 
 * Toujours vérifier que la **météo est cohérente** entre Python et Unreal (type de véhicule choisi).
 * Les scripts Excel doivent être régénérés pour chaque participant.
-* Ne jamais modifier manuellement les colonnes dans Excel.
-* Vérifier le **mappage position → coordonnées réelles** dans Unreal.
 
 ---
 
-# 📌 9. Annexes techniques
+#  9. Annexes techniques
 
 Pour toute extension, nouvelle version, ou migration UE5/CARLA, se référer aux Blueprints documentés :
 

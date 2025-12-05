@@ -1,7 +1,17 @@
 # =====================================================================
 # Analyse Expérience 1 — Script Streamlit
-# Analyse du temps perçu vs temps réel pour les trials de l'expérience 1
-# Lecture des CSV Unreal/CARLA + Excel Python + calculs + visualisations
+# Auteur : (Projet Thèse – CARLA/UE5)
+#
+# Objectif :
+#   - Automatiser l’analyse des trials de l’Expérience 1 (TTC estimation)
+#   - Lire les données exportées par Unreal/CARLA (peds.csv, cars.csv)
+#   - Lire les consignes du trial (Excel généré côté Python)
+#   - Reconstituer le TTC réel et perçu
+#   - Calculer les erreurs (err_s), les métriques globales
+#   - Produire visualisations interactives (Plotly + Streamlit)
+#
+# Ce script est conçu pour un usage exploratoire et pédagogique
+# immédiatement après les sessions VR.
 # =====================================================================
 
 import re, math
@@ -15,19 +25,28 @@ import streamlit as st
 # ===========================
 # Réglages par défaut
 # ===========================
-# Dossier où Unreal Engine écrit Logs/<N>/peds.csv, cars.csv, gaze.csv
+# Chemin Windows par défaut. Le script reste compatible Linux/MacOS
+# dès lors que l’utilisateur spécifie un dossier manuel.
 DEFAULT_LOGS = r"C:\Users\carlaue5.3\CarlaUE5\Unreal\CarlaUnreal\Logs"
 
-# ===========================
-# Utils lecture & calculs
-# ===========================
+
+# =====================================================================
+# 1. Fonctions utilitaires — parsing robuste et lecture CSV
+# =====================================================================
 
 def _num_from_any(series: pd.Series) -> pd.Series:
     """
-    Convertit une colonne en valeurs numériques robustes :
-      - extrait un nombre depuis : '60', '60 km/h', '60,0', etc.
-      - remplace les virgules par des points
-      - convertit en float, NaN si impossible.
+    Convertit une colonne en valeurs numériques robustes.
+    Cette fonction est indispensable car les fichiers Excel peuvent
+    contenir des entrées comme "60 km/h", "60,0", "  60 ", etc.
+
+    - Extraction regex d'un motif numérique
+    - Conversion des virgules -> points
+    - Transforme en float, NaN si impossible
+
+    Choix d’implémentation :
+        → Le parsing tolérant permet d'éviter des crashs lors de fautes
+          de frappe ou variations de format.
     """
     s = series.astype(str).str.extract(r'([-+]?\d+[.,]?\d*)', expand=False)
     s = s.str.replace(',', '.', regex=False)
@@ -36,20 +55,28 @@ def _num_from_any(series: pd.Series) -> pd.Series:
 
 def read_cars_csv(p: Path) -> pd.DataFrame:
     """
-    Lecture robuste du fichier cars.csv d’un trial.
-    - Essaye d'abord le séparateur ';', sinon ','.
-    - Normalise les noms de colonnes en Time, Time_estimated, X_pos, X_est.
-    - Ajoute X_est = 0.0 si absent (sécurité).
+    Lecture robuste du fichier cars.csv.
+    Unreal/CARLA peuvent écrire avec séparateur ';' ou ',' selon machine.
+    Cette fonction utilise automatiquement le bon parseur.
+
+    Elle normalise également les noms de colonnes pour simplifier l'analyse.
+
+    Spécificité :
+        - X_est est optionnel (selon configuration expérimentale)
+          → création d'une colonne X_est=0.0 si absente
+          Cela simplifie la logique aval.
     """
+    # Tentative : séparateur ';' (format UE/CARLA France)
     try:
         df = pd.read_csv(p, sep=';')
     except Exception:
-        df = pd.read_csv(p)
+        df = pd.read_csv(p)  # fallback : ','
 
-    # normalisation des noms
+    # Normalisation des noms de colonnes
     ren = {}
     for c in df.columns:
         l = c.strip().lower()
+
         if l == 'time': ren[c] = 'Time'
         elif 'time_est' in l: ren[c] = 'Time_estimated'
         elif 'x_pos' in l or l == 'x': ren[c] = 'X_pos'
@@ -57,61 +84,76 @@ def read_cars_csv(p: Path) -> pd.DataFrame:
 
     df = df.rename(columns=ren)
 
-    # colonnes indispensables
+    # Vérification des colonnes obligatoires
     for k in ['Time', 'Time_estimated', 'X_pos']:
         if k not in df.columns:
             raise ValueError(f"{p.name}: colonne manquante '{k}'")
 
-    # X_est optionnelle → mise à zéro
+    # Compatibilité ascendante : X_est facultatif
     if 'X_est' not in df.columns:
         df['X_est'] = 0.0
 
     return df
 
 
-def disappearance_time(time, x, ignore_first_seconds: float, hold: int, eps: float=1e-6) -> float:
+def disappearance_time(time, x, ignore_first_seconds: float, hold: int, eps: float = 1e-6) -> float:
     """
-    Détection automatique du temps où la voiture "disparaît".
-    - On cherche la première transition nonzéro -> zéro qui reste zéro au moins `hold` frames.
-    - On ignore les x_pos=0 au tout début (ligne d'initialisation Unreal).
-    - Fallback : prend le temps du minimum absolu de X_pos.
+    Détection automatique de la disparition du véhicule.
+    Hypothèses basées sur l'architecture Unreal :
+        - Unreal écrit parfois un X_pos=0 pendant quelques frames au chargement.
+        - Lorsque le véhicule disparaît, X_pos devient 0 pendant plusieurs frames
+          consécutives (≥ hold).
+
+    Stratégie :
+        1) Ignore les premières secondes (initialisation moteur)
+        2) Détecte une transition (non-zero → zero)
+        3) Valide que la zone zéro est persistante (hold frames)
+        4) Fallback : prend le minimum absolu de X_pos
+
+    Ce mécanisme est robuste aux glitchs VR/UE et garantit une
+    détection stable même sur des machines hétérogènes.
     """
     t = np.asarray(time, dtype=float)
     x = np.asarray(x, dtype=float)
 
-    # Début réel du mouvement (ignorer artificiellement les valeurs initiales)
+    # Ignore la tête du signal (initialisation UE)
     tmin = float(np.nanmin(t))
     mask = t >= (tmin + ignore_first_seconds - 1e-6)
     if mask.sum() < 2:
+        # Si trop peu de données, on désactive le filtrage
         mask = np.ones_like(t, dtype=bool)
 
     t2, x2 = t[mask], x[mask]
 
-    # états non-zéro et zéro
-    nz = np.abs(x2) > eps
-    z  = ~nz
+    nz = np.abs(x2) > eps   # état normal
+    z  = ~nz                # état disparition
 
-    # transitions nonzéro -> zéro
+    # transitions non-zero → zero
     trans = np.where(nz[:-1] & z[1:])[0]
 
-    # validation du "zéro soutenu pendant hold frames"
+    # validation des hold frames
     for i in trans:
         i1 = i + 1
         i2 = min(i1 + hold, len(x2))
         if np.all(~(np.abs(x2[i1:i2]) > eps)):
             return float(t2[i1])
 
-    # fallback : minimum absolu
+    # fallback (cas extrême)
     j = int(np.argmin(np.abs(x2)))
     return float(t2[j])
 
 
 def first_press_time(df: pd.DataFrame, press_source: str):
     """
-    Détection du premier appui participant :
-    Deux sources possibles :
-      - Time_estimated != 0 (snap du participant)
-      - X_est != 0        (données envoyées par Python)
+    Détection du premier appui participant.
+    Deux sources possibles (selon paramètre utilisateur) :
+
+        A) Time_estimated :
+              Unreal écrit Time_estimated != 0 lors d'un snap Exp1
+        B) X_est :
+              Valeur envoyée par Python (rare mais utile en debug)
+
+    Retourne None si aucun appui n'est détecté.
     """
     if press_source == "Time_estimated":
         s = df.loc[df['Time_estimated'] != 0, 'Time']
@@ -123,12 +165,20 @@ def first_press_time(df: pd.DataFrame, press_source: str):
 
 def load_exp1_excel(excel_path: Path) -> pd.DataFrame:
     """
-    Lecture du fichier Excel contenant :
-      - vitesse
-      - distance de disparition
-      - position (spawn participant)
-      - météo
-    Renommage automatique + conversion numérique.
+    Lecture du fichier Excel exp1.xlsx généré par les scripts Python.
+    On standardise les colonnes afin d'éviter les effets de formatting Excel.
+
+    Le fichier contient :
+        - vitesse (km/h)
+        - distance de disparition (m)
+        - position du participant
+        - météo
+        - numéro de trial
+
+    La fonction tolère :
+        - colonnes désordonnées
+        - formats non classiques
+        - formats texte
     """
     df = pd.read_excel(excel_path)
 
@@ -143,18 +193,19 @@ def load_exp1_excel(excel_path: Path) -> pd.DataFrame:
 
     df = df.rename(columns=colmap)
 
-    # si "trial" absent → numérote automatiquement
+    # Si "trial" absent → numérotation incrémentale
     if 'trial' not in df.columns:
         df['trial'] = np.arange(1, len(df) + 1)
 
     keep = ['trial', 'velocity_kmh', 'disappear_m', 'position', 'weather']
     for k in keep:
         if k not in df.columns:
+            # colonne inexistante → remplissage par sécurité
             df[k] = np.nan
 
     df = df[keep]
 
-    # conversions numériques
+    # Conversions numériques robustes
     df['velocity_kmh'] = _num_from_any(df['velocity_kmh'])
     df['disappear_m']  = _num_from_any(df['disappear_m']).abs()
     df['position']     = pd.to_numeric(df['position'], errors='coerce')
@@ -162,14 +213,20 @@ def load_exp1_excel(excel_path: Path) -> pd.DataFrame:
     return df.set_index('trial').sort_index()
 
 
+# =====================================================================
+# 2. Métriques d'erreur + agrégations
+# =====================================================================
+
 def metrics_table(df: pd.DataFrame) -> pd.DataFrame:
     """
-    Calcule les métriques d’erreur :
-      - biais
-      - MAE
-      - RMSE
-      - écart-type
-      - % correct (selon tolérance)
+    Calcul des principales métriques d’évaluation :
+        - biais
+        - MAE
+        - RMSE
+        - écart-type
+        - % correct (selon tolérance)
+
+    La métrique est renvoyée sous forme DataFrame → compatible Streamlit.
     """
     s = df['err_s'].dropna().values
     if s.size == 0:
@@ -190,10 +247,12 @@ def metrics_table(df: pd.DataFrame) -> pd.DataFrame:
 
 def aggregate(df: pd.DataFrame, key: str) -> pd.DataFrame:
     """
-    Agrège les métriques par :
-      - vitesse
-      - météo
-      - distance
+    Agrège les métriques selon une variable donnée :
+        - par vitesse
+        - par météo
+        - par distance
+
+    La structure retournée s'intègre directement dans Streamlit.
     """
     rows = []
     for k, g in df.groupby(key):
@@ -202,24 +261,39 @@ def aggregate(df: pd.DataFrame, key: str) -> pd.DataFrame:
         rows.append(mt)
 
     cols = [key, 'n', 'bias', 'mae', 'rmse', 'std', 'p_correct']
-    return pd.DataFrame(rows)[cols].sort_values(by=key).reset_index(drop=True)
+    return pd.DataFrame(rows)[cols].sort_values(key).reset_index(drop=True)
 
+
+# =====================================================================
+# 3. Pipeline principal — analyse complète des Logs
+# =====================================================================
 
 @st.cache_data(show_spinner=False)
 def analyze_logs(logs_dir: str, tolerance_sec: float, ignore_first_seconds: float, hold_zeros: int, press_source: str):
     """
-    Fonction principale :
-    - cherche Excel exp1 dans Logs
-    - charge chaque dossier <N>
-    - lit cars.csv → détecte t_disappear et t_press
-    - calcule t_true = distance / vitesse
-    - calcule erreur err_s
-    - retourne :
-        inputs (excel), df complet, agrégations
+    Fonction principale d'analyse.
+
+    Étapes :
+        1. Recherche du fichier Excel exp1.xlsx dans logs_dir
+        2. Récupération de tous les dossiers <N> correspondant aux trials
+        3. Lecture de chaque cars.csv
+        4. Détection robuste :
+               - t_disappear
+               - t_press
+        5. Récupération des paramètres du trial depuis Excel
+        6. Calcul du TTC théorique (distance / vitesse)
+        7. Calcul du TTC perçu
+        8. Calcul de l’erreur err_s et du critère "correct"
+        9. Agrégations selon vitesse / météo / distance
+
+    La structure de retour :
+        inputs → données de consigne (Excel)
+        df     → tableau complet trial par trial
+        agg_*  → agrégations pour graphiques
     """
     root = Path(logs_dir)
 
-    # recherche du fichier Excel consigne exp1
+    # Recherche du fichier Excel (exp1)
     excel = None
     for f in root.iterdir():
         if f.suffix.lower() == '.xlsx' and 'exp1' in f.name.lower():
@@ -230,7 +304,7 @@ def analyze_logs(logs_dir: str, tolerance_sec: float, ignore_first_seconds: floa
 
     inputs = load_exp1_excel(excel)
 
-    # dossiers de trials : "1", "2", "3", ...
+    # Dossiers trials = entiers 1, 2, 3, ...
     trial_dirs = [d for d in root.iterdir() if d.is_dir() and re.fullmatch(r'\d+', d.name)]
     trial_dirs.sort(key=lambda p: int(p.name))
 
@@ -238,18 +312,19 @@ def analyze_logs(logs_dir: str, tolerance_sec: float, ignore_first_seconds: floa
     for d in trial_dirs:
         trial = int(d.name)
 
-        # détection robuste de cars.csv
+        # Lecture robuste du cars.csv
         cars_csv = d / 'cars.csv'
         if not cars_csv.exists():
+            # fallback → trouve n'importe quel fichier contenant 'car'
             alts = [p for p in d.iterdir()
-                    if p.is_file() and p.suffix.lower()=='.csv' and 'car' in p.name.lower()]
+                    if p.is_file() and p.suffix.lower() == '.csv' and 'car' in p.name.lower()]
             if alts:
                 cars_csv = alts[0]
 
         if not cars_csv.exists():
-            continue
+            continue  # ignorer les dossiers corrompus
 
-        # extraction des temps
+        # Extraction des temps
         try:
             cars = read_cars_csv(cars_csv)
             t_disappear = disappearance_time(
@@ -260,7 +335,7 @@ def analyze_logs(logs_dir: str, tolerance_sec: float, ignore_first_seconds: floa
         except Exception:
             t_disappear, t_press = np.nan, np.nan
 
-        # paramètres du trial (depuis Excel)
+        # paramètres du trial
         if trial in inputs.index:
             v_kmh = float(inputs.loc[trial, 'velocity_kmh'])
             d_m   = float(inputs.loc[trial, 'disappear_m'])
@@ -269,20 +344,19 @@ def analyze_logs(logs_dir: str, tolerance_sec: float, ignore_first_seconds: floa
         else:
             v_kmh, d_m, pos, wthr = np.nan, np.nan, np.nan, None
 
-        # calcul temps théorique = distance / vitesse
-        v_mps  = (v_kmh / 3.6) if (not math.isnan(v_kmh)) else np.nan
+        # Temps théorique
+        v_mps = (v_kmh / 3.6) if not math.isnan(v_kmh) else np.nan
         t_true = (d_m / v_mps) if (pd.notna(d_m) and pd.notna(v_mps) and v_mps > 0) else np.nan
 
-        # temps perçu par le participant
+        # Temps perçu
         if (t_press is None) or any(math.isnan(x) for x in [t_disappear, t_press]):
             t_perceived = np.nan
             err_s = np.nan
         else:
-            # définition : (appui participant) − (disparition voiture)
             t_perceived = float(t_press - t_disappear)
             err_s = float(t_perceived - t_true)
 
-        # correct = erreur <= tolérance
+        # Correct ou non
         correct = (abs(err_s) <= tolerance_sec) if not math.isnan(err_s) else False
 
         rows.append(dict(
@@ -301,7 +375,7 @@ def analyze_logs(logs_dir: str, tolerance_sec: float, ignore_first_seconds: floa
 
     df = pd.DataFrame(rows).sort_values('trial').reset_index(drop=True)
 
-    # agrégations
+    # Agrégations
     df_valid = df.dropna(subset=['err_s'])
     agg_vel = aggregate(df_valid, 'velocity_kmh') if not df_valid.empty else pd.DataFrame()
     agg_wth = aggregate(df_valid, 'weather')      if not df_valid.empty else pd.DataFrame()
@@ -310,14 +384,14 @@ def analyze_logs(logs_dir: str, tolerance_sec: float, ignore_first_seconds: floa
     return inputs, df, agg_vel, agg_wth, agg_dst
 
 
-# ===========================
-# Interface graphique Streamlit
-# ===========================
+# =====================================================================
+# 4. Interface utilisateur Streamlit
+# =====================================================================
 
 st.set_page_config(page_title="Expérience 1 – Analyse", layout="wide")
 st.title("Expérience 1 — Temps perçu vs réel (CARLA/UE)")
 
-# barre latérale paramètres
+# Barre latérale
 with st.sidebar:
     st.header("Paramètres")
 
@@ -331,11 +405,12 @@ with st.sidebar:
     hold_zeros = int(colC.number_input("Zéros consécutifs (hold)", value=3, min_value=1, step=1))
     press_source = colD.selectbox("Source appui", ["Time_estimated", "X_est"])
 
-    st.caption("• Temps perçu = t(appui) − t(disparition X_pos)\n• Temps réel = distance / (vitesse/3.6)")
+    st.caption("• Temps perçu = t(appui) − t(disparition véhicule)\n"
+               "• Temps réel = distance / vitesse_m/s")
 
     ready = st.button("Analyser", use_container_width=True)
 
-# lancement traitement
+# Si l'utilisateur lance l'analyse
 if ready:
     try:
         inputs, df, agg_vel, agg_wth, agg_dst = analyze_logs(
@@ -344,9 +419,8 @@ if ready:
     except Exception as e:
         st.error(str(e))
     else:
-        # ===========================
-        # KPIs globaux
-        # ===========================
+
+        # Métriques globales
         kpi = metrics_table(df.dropna(subset=['err_s']))
 
         c1, c2, c3, c4, c5 = st.columns(5)
@@ -356,12 +430,10 @@ if ready:
         c4.metric("RMSE (s)", f"{kpi['rmse'].iloc[0]:.3f}" if not kpi.empty else "–")
         c5.metric("% Correct", f"{100*kpi['p_correct'].iloc[0]:.1f}%" if not kpi.empty else "–")
 
-        # ===========================
         # Filtres utilisateur
-        # ===========================
         st.subheader("Filtres")
-
         fcol1, fcol2, fcol3 = st.columns(3)
+
         vel_choices = sorted(df['velocity_kmh'].dropna().unique().tolist())
         dst_choices = sorted(df['disappear_m'].dropna().unique().tolist())
         wth_choices = sorted(df['weather'].dropna().astype(str).unique().tolist())
@@ -378,44 +450,58 @@ if ready:
             dff['weather'].isin(sel_wth)
         ]
 
-        # ===========================
-        # Graphes
-        # ===========================
+        # ======================================
+        # Graphique : Perçu vs Réel
+        # ======================================
         st.markdown("### Perçu vs Réel")
 
-        # graphe perçu vs réel
         valid_pairs = dff.dropna(subset=['t_true','t_perceived'])
         if not valid_pairs.empty:
-            fig = px.scatter(valid_pairs, x='t_true', y='t_perceived',
-                             color='weather',
-                             hover_data=['trial','velocity_kmh','disappear_m'])
+            fig = px.scatter(
+                valid_pairs, x='t_true', y='t_perceived',
+                color='weather',
+                hover_data=['trial','velocity_kmh','disappear_m']
+            )
 
             lo = float(min(valid_pairs[['t_true','t_perceived']].min().min(), 0))
             hi = float(valid_pairs[['t_true','t_perceived']].max().max())
+
+            # Ajout de la diagonale y=x
             fig.add_trace(go.Scatter(x=[lo,hi], y=[lo,hi], mode='lines', name='y=x'))
-            fig.update_layout(legend_title="Météo",
-                              xaxis_title="Temps réel (s)",
-                              yaxis_title="Temps perçu (s)")
+
+            fig.update_layout(
+                legend_title="Météo",
+                xaxis_title="Temps réel (s)",
+                yaxis_title="Temps perçu (s)"
+            )
             st.plotly_chart(fig, use_container_width=True)
         else:
             st.info("Aucune donnée valide pour ce filtre.")
 
-        # histogramme erreurs
+        # ======================================
+        # Histogramme des erreurs
+        # ======================================
         colL, colR = st.columns(2)
         with colL:
             st.markdown("### Histogramme des erreurs (s)")
             e = dff['err_s'].dropna()
             if not e.empty:
-                fig = px.histogram(e, x='err_s',
-                                   nbins=min(40, max(10, int(np.sqrt(len(e))*3))))
+                fig = px.histogram(
+                    e, x='err_s',
+                    nbins=min(40, max(10, int(np.sqrt(len(e))*3)))
+                )
                 fig.add_vline(x=0, line_dash='dash')
-                fig.update_layout(xaxis_title="Erreur (s)  (>0 = en retard, <0 = en avance)",
-                                  yaxis_title="Fréquence")
+                fig.update_layout(
+                    xaxis_title="Erreur (s)  (>0 = en retard, <0 = en avance)",
+                    yaxis_title="Fréquence"
+                )
                 st.plotly_chart(fig, use_container_width=True)
             else:
                 st.info("Pas d'erreurs à afficher.")
 
-        # boxplots
+        # ======================================
+        # Boxplots
+        # ======================================
         with colR:
             st.markdown("### Boîtes par vitesse (erreur en s)")
             if not dff.dropna(subset=['err_s']).empty:
@@ -443,9 +529,9 @@ if ready:
                 fig.update_layout(xaxis_title="Distance (m)", yaxis_title="Erreur (s)")
                 st.plotly_chart(fig, use_container_width=True)
 
-        # ===========================
-        # Tableau des trials
-        # ===========================
+        # ======================================
+        # Tableau final
+        # ======================================
         st.markdown("### Tableau des essais")
 
         st.dataframe(
@@ -455,6 +541,3 @@ if ready:
             .sort_values('trial'),
             use_container_width=True, height=360
         )
-
-        # (La partie finale du script — inspecteur graphique d'un trial —
-        #  n’est pas incluse dans ton extrait)

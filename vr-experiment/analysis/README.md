@@ -1,44 +1,49 @@
-# 📊 Analysis – README
+# Analysis – README
 
-Ce dossier contient les outils d’analyse des deux expériences VR :
+Ce dossier regroupe les outils d’analyse associés aux deux expériences VR :
 
-* **Expérience 1 – TTC Estimation experiment**
-* **Expérience 2 – Crossing Decision experiment**
+* **Expérience 1 – TTC Estimation Experiment**  
+  Analyse du temps perçu par le participant pour l’arrivée du véhicule.
 
-Les deux outils sont développés sous **Streamlit** et permettent de visualiser les résultats immédiatement après la passation d’un participant à partir des fichiers CSV générés par Unreal Engine.
+* **Expérience 2 – Crossing Decision Experiment**  
+  Analyse du signal de décision de traversée et de la distance véhicule–piéton.
+
+Les deux outils sont implémentés en Python/Streamlit afin de permettre une visualisation immédiate après chaque session, à partir des fichiers CSV générés par Unreal Engine.
 
 ---
 
-# 📁 Structure
+## Structure
 
 ```
+
 analysis/
 │
-├── analyze_exp1_log.py   # Analyse TTC (Expérience 1)
-└── analyze_exp2_log.py   # Analyse Crossing/Distance + EOCI (Expérience 2)
-```
+├── analyze_exp1_log.py   # Analyse Expérience 1 (TTC perçu)
+└── analyze_exp2_log.py   # Analyse Expérience 2 (Crossing/Distance)
+
+````
 
 ---
 
-# ▶️ Prérequis
+## Prérequis
 
 Installer les dépendances :
 
 ```bash
 pip install streamlit plotly pandas numpy openpyxl
-```
+````
 
 ---
 
-# ▶️ Lancer une analyse
+## Exécution des outils
 
-## **Expérience 1**
+### Expérience 1
 
 ```bash
 streamlit run analyze_exp1_log.py
 ```
 
-## **Expérience 2**
+### Expérience 2
 
 ```bash
 streamlit run analyze_exp2_log.py
@@ -46,24 +51,24 @@ streamlit run analyze_exp2_log.py
 
 ---
 
-# 📂 Organisation attendue du dossier Logs
+## Organisation attendue du dossier Logs
 
-Ces scripts analysent les résultats générés par Unreal Engine :
+Les scripts lisent les données produites par Unreal Engine dans :
 
 ```
 C:\Users\<USER>\CarlaUE5\Unreal\CarlaUnreal\Logs\
 ```
 
-Chaque essai génère un dossier numéroté :
+Organisation standard :
 
 ```
 Logs/
 │
-├── exp1.xlsx   # ou exp2.xlsx
+├── exp1.xlsx   # ou exp2.xlsx : plan d’expérience
 ├── 1/
 │   ├── cars.csv
 │   ├── peds.csv
-│   └── gaze.csv   # exp1 uniquement
+│   └── gaze.csv   # uniquement Expérience 1
 ├── 2/
 │   ├── cars.csv
 │   ├── peds.csv
@@ -71,63 +76,83 @@ Logs/
 ...
 ```
 
----
+Contraintes :
 
-# 🧪 Description des outils
-
-## ✔️ **analyze_exp1_log.py** — TTC Estimation Experiment
-
-Analyse :
-
-* l’instant précis de disparition de la voiture
-* le moment du snap (trigger)
-* le temps perçu vs le temps réel
-* erreurs : biais, MAE, RMSE, % correct
-
-Graphiques :
-
-* perçu vs réel
-* histogramme des erreurs
-* boxplots météo / vitesse / distance
+* chaque essai doit avoir été sauvegardé à l’aide de la touche `S` dans Unreal ;
+* le plan d’expérience doit se trouver au même niveau que les dossiers numérotés ;
+* les CSV doivent être ceux générés via le backend C++ `RWText`.
 
 ---
 
-## ✔️ **analyze_exp2_log.py** — Crossing Decision Experiment
+## Description des outils
 
-Analyse :
+### analyze_exp1_log.py — TTC Estimation Experiment
 
-* la distance de sécurité (moment du passage 1→0)
-* l’**EOCI** : Estimated Opportunity to Cross Interval
-* courbes crossing/distance par position et météo
+Cet outil reconstruit pour chaque essai :
 
-Graphiques :
+* le temps de disparition du véhicule (analyse du `X_pos`) ;
+* l’instant du snap (trigger) ;
+* le temps perçu par le participant ;
+* l’erreur relative au temps réel calculé via les paramètres du trial.
 
-* barplots EOCI par vitesse et météo
-* heatmaps vitesse × météo
-* courbes crossing vs distance
+Métriques produites :
+
+* biais ;
+* MAE ;
+* RMSE ;
+* écart-type ;
+* pourcentage d’essais corrects (selon une tolérance configurable).
+
+Visualisations incluses :
+
+* temps perçu vs temps réel ;
+* histogrammes d’erreurs ;
+* boxplots (vitesse, météo, distance) ;
+* tableau récapitulatif des essais.
 
 ---
 
-# 🧷 Notes importantes
+### analyze_exp2_log.py — Crossing Decision Experiment
 
-* Les scripts ne modifient pas les données.
-* L’utilisateur doit avoir correctement sauvegardé chaque trial (`S`).
-* Les CSV doivent respecter le format produit par Unreal Engine → `RWText`.
+Cet outil analyse le comportement de décision en continu.
+Il reconstruit :
+
+* le signal Crossing normalisé en valeurs binaires ;
+* la série temporelle du gap (distance véhicule–piéton) ;
+* la distance de sécurité, définie comme la distance au moment de la première transition Crossing 1→0.
+
+Indicateurs disponibles :
+
+* distance de sécurité par essai ;
+* agrégats par vitesse, météo et position.
+
+Visualisations incluses :
+
+* barplots des distances de sécurité ;
+* heatmaps vitesse × météo ;
+* courbes Crossing vs Distance par position ;
+* tableau des essais.
+
+Cet outil n’est pas destiné à calculer une estimation de type TTC ou « opportunité temporelle », la tâche expérimentale ne reposant sur aucune estimation explicite.
 
 ---
 
-# 🔗 Documentation liée
+## Notes d’utilisation
 
-* 📘 **Protocole complet des expériences**
-  → [unreal_project/experience_flow.md](../unreal_project/experience_flow.md)
+* Les scripts opèrent en lecture seule : aucune donnée n’est modifiée.
+* Les CSV doivent être complets et correctement sauvegardés (`S` puis `Entrée` entre chaque trial).
+* Les fichiers doivent être strictement conformes au format généré par `RWText` (séparateur `;`).
+* L’analyse échoue si le plan d’expérience associé (exp1.xlsx ou exp2.xlsx) est absent ou mal nommé.
 
-* 📘 **Scripts Python de session (spawn trials)**
-  → [scripts/README.md](../scripts/README.md)
+---
 
-* 📘 **Plans d’expérience & paramètres exposés**
-  → [experiment_design/README.md](../experiment_design/README.md)
+## Documentation liée
 
-* 📘 **Pipeline Unreal → CSV (Blueprints + C++)**
-  → [unreal_project/README.md](../unreal_project/README.md)
+* [Protocole complet des expériences](../unreal_project/experience_flow.md)
 
+* [Scripts Python de session](../scripts/README.md)
+
+* [Plans d’expérience](../experiment_design/README.md)
+
+* [Pipeline Unreal → CSV (Blueprints + backend C++)](../unreal_project/README.md)
 

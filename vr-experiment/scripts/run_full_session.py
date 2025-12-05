@@ -2,37 +2,84 @@ import pandas as pd
 import subprocess
 import os
 
-# Fonction pour lire les commandes depuis le fichier Excel et les exécuter
+# =============================================================================
+# Exécution séquentielle d'une session complète d'essais CARLA/Unreal
+# ---------------------------------------------------------------------
+# Ce script lit un fichier Excel contenant les commandes Python à exécuter
+# pour chaque trial (souvent générées automatiquement par un script dédié).
+#
+# Pour chaque ligne :
+#   1. La commande est exécutée dans un sous-processus.
+#   2. L’opérateur doit valider que la voiture a bien disparu dans Unreal.
+#   3. L'utilisateur confirme manuellement avant de lancer le trial suivant.
+#
+# Ce script assure un pilotage fiable et reproductible d'une session complète,
+# en laissant à l'opérateur le contrôle des transitions critiques.
+# =============================================================================
+
+
 def execute_commands_from_excel(excel_file):
-    # Lire le fichier Excel
+    """
+    Exécute séquentiellement les commandes listées dans un fichier Excel.
+
+    Paramètres
+    ----------
+    excel_file : str ou Path
+        Chemin vers un fichier .xlsx contenant au minimum une colonne "Command".
+
+    Fonctionnement
+    --------------
+    - Lecture des commandes dans l’ordre.
+    - Exécution via subprocess.run(..., shell=True).
+    - Pause après chaque trial pour validation manuelle.
+    """
+
+    # Lecture du fichier Excel contenant les commandes (colonne "Command")
     df = pd.read_excel(excel_file)
 
-    # Extraire les commandes de la colonne "Command"
+    if "Command" not in df.columns:
+        raise ValueError(
+            f"Le fichier '{excel_file}' ne contient pas de colonne 'Command'."
+        )
+
     commands = df["Command"].tolist()
 
-    # Exécuter chaque commande une par une
+    # Boucle principale — chaque ligne correspond à un trial
     for idx, command in enumerate(commands):
-        print(f"Exécution de : {command}")
-        print(f"Trial : {idx + 1}")
+        print(f"\n--- Trial {idx + 1} ------------------------------------------------")
+        print(f"Commande : {command}")
 
-        # Exécuter la commande
+        # Exécution de la commande Python
         process = subprocess.run(command, shell=True)
 
-        # Vérifier si la commande s'est bien exécutée
+        # Gestion d'erreur basique : arrêt immédiat si le sous-processus échoue
         if process.returncode != 0:
-            print(f"Erreur rencontrée avec : {command}")
+            print(f"Erreur : la commande ci-dessus a échoué (code {process.returncode}).")
+            print("Arrêt du script.")
             break
 
-        # --- IMPORTANT ---
-        # Avant de passer au trial suivant, S'ASSURER QUE LA VOITURE A BIEN DISPARU DANS UNREAL.
-        # Sinon : appuyer sur CTRL+C pour interrompre l'exécution,
-        # puis relancer à partir de la commande suivante.
-        # ------------------
+        # ---------------------------------------------------------------------
+        # Étape critique : validation que la voiture a complètement disparu.
+        #
+        # Si la voiture est encore visible dans l'environnement Unreal :
+        #   - Ne PAS poursuivre.
+        #   - Interrompre ce script via CTRL+C.
+        #   - Corriger la situation, puis relancer le script en reprenant
+        #     à partir de la ligne Excel correspondante.
+        #
+        # L'enchaînement automatique sans validation visuelle peut provoquer
+        # des collisions logiques entre les trials et compromettre les logs.
+        # ---------------------------------------------------------------------
 
-        # Attendre que l'utilisateur appuie sur une touche avant de continuer
-        input("Appuyez sur une touche pour exécuter la commande suivante...")
+        # Pause opérateur : validation manuelle avant de passer au trial suivant
+        input("Appuyez sur Entrée pour lancer la commande suivante...")
 
+
+
+# =============================================================================
 # Exemple d'utilisation
-excel_file = ("participant_2_commands_exp2.xlsx")  # Remplacez par le chemin de votre fichier
+# Remplacer par le chemin du fichier Excel correspondant au participant.
+# =============================================================================
+
+excel_file = "participant_2_commands_exp2.xlsx"
 execute_commands_from_excel(excel_file)
-s

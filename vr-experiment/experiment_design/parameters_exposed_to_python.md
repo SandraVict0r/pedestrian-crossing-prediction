@@ -1,6 +1,6 @@
 
 
-# 📘 **README — Unreal Blueprints Integration (UE 5.3.2)**
+#  **Unreal Blueprints Integration (UE 5.3.2)**
 
 ## Communication entre CARLA (Python) et Unreal Engine via Blueprints
 
@@ -14,7 +14,7 @@ Ce système fonctionne pour **l’expérience 1 et 2**, pilotées par ton script
 
 ---
 
-# 🧩 **1. Vue générale du système**
+#  **1. Vue générale du système**
 
 Lorsque `run_trial.py` démarre un trial, il spawn **trois acteurs CARLA** :
 
@@ -32,7 +32,7 @@ pour sélectionner la configuration correcte.
 
 ---
 
-# 🚗 2. Vehicle Blueprint (véhicule autopiloté)
+# 2. Vehicle Blueprint (véhicule autopiloté)
 
 ### *Blueprint UE associé :* `BP_ExperimentController` ou équivalent dans ton projet
 
@@ -52,7 +52,7 @@ Dans Unreal :
 
 ---
 
-# 🌦️ 3. Weather Blueprint (token météo)
+# 3. Weather Blueprint (token météo)
 
 CARLA spawn un véhicule spécial selon la météo :
 
@@ -62,7 +62,7 @@ CARLA spawn un véhicule spécial selon la météo :
 | `[False, False, True]`  | Dodge Charger    | Night / lights on     |
 | `[True, True, False]`   | Ford Taxi        | Rain + clouds         |
 
-## ➤ Comment Unreal lit la météo ?
+## Comment Unreal lit la météo ?
 
 Dans Unreal :
 
@@ -83,7 +83,7 @@ Dans Unreal :
 
 ---
 
-# 🧍 4. Player Blueprint (ancrage player)
+# 4. Player Blueprint (ancrage player)
 
 Même s’il n’est plus directement visible dans la version finale, Unreal s’en sert toujours.
 
@@ -95,7 +95,7 @@ Il permet à Unreal de savoir :
 * où positionner la caméra, les colliders, les triggers
 * la zone de crossing (ligne virtuelle)
 
-## ➤ Lecture par Unreal
+## Lecture par Unreal
 
 Dans `BP_PlayerController` ou `BP_ExperimentController` :
 
@@ -110,7 +110,7 @@ Dans `BP_PlayerController` ou `BP_ExperimentController` :
 
 ---
 
-# 🔧 5. Localisation des Blueprints et dépendances
+#  5. Localisation des Blueprints et dépendances
 
 ### Principaux Blueprints Unreal utilisés dans l’expérience
 
@@ -126,7 +126,7 @@ Dans `BP_PlayerController` ou `BP_ExperimentController` :
 
 ---
 
-# 📡 6. Comment Unreal lit les “tokens” (processus exact)
+#  6. Comment Unreal lit les “tokens” 
 
 1. **Au lancement**, un Blueprint (souvent dans le Level Blueprint) exécute :
 
@@ -150,18 +150,5 @@ Dans `BP_PlayerController` ou `BP_ExperimentController` :
 
 ➡ **Donc les Blueprints Unreal ne reçoivent pas directement les arguments Python, mais lisent l’état du monde CARLA.**
 
----
 
-# 📝 7. Bonnes pratiques pour modifier ou étendre ce système
-
-* Ne jamais supprimer les trois spawn CARLA (vehicle, weather, player)
-* Ne jamais renommer les Blueprints détectés sans mettre à jour la table de lecture
-* Pour ajouter une nouvelle météo :
-
-  * ajouter un nouveau blueprint token dans Python
-  * l’ajouter dans le Blueprint “switch” dans UE
-* Pour ajouter une nouvelle expérience (Exp3) :
-
-  * ajouter une nouvelle position Player ou un nouveau Player BP
-  * adapter le Level Blueprint
 

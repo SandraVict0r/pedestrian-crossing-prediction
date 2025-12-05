@@ -3,11 +3,9 @@ import itertools
 import openpyxl
 import pandas as pd
 import random
-
 # -------------------------------------------------------------------
-# Définition des groupes de paramètres pour l'expérience 1
-# -------------------------------------------------------------------
-
+# PARAMÈTRES DE L’EXPÉRIENCE 1
+# ----------------------------------------
 # Deux groupes de vitesses possibles
 group1 = [20, 40, 60]
 group2 = [30, 50, 70]

@@ -1,4 +1,4 @@
-# 🎛️ Scripts Python — Gestion des Sessions VR
+# Scripts Python — Gestion des Sessions VR
 
 Ce dossier contient les scripts Python utilisés pour exécuter les expériences VR (Expérience 1 et Expérience 2).
 Ils assurent :
@@ -10,7 +10,7 @@ Ils assurent :
 
 ---
 
-# 📌 1. Liste des scripts
+# 1. Liste des scripts
 
 | Script                                  | Rôle                                                                                       |
 | --------------------------------------- | ------------------------------------------------------------------------------------------ |
@@ -21,7 +21,7 @@ Ils assurent :
 
 ---
 
-# 📌 2. Génération des plans d’expérience (`generate_participant_plan_exp1.py` / `exp2.py`)
+# 2. Génération des plans d’expérience (`generate_participant_plan_exp1.py` / `exp2.py`)
 
 Chaque script génère un fichier Excel **participant_plan_expX.xlsx** contenant 27 lignes correspondant aux 27 trials d’un participant.
 
@@ -45,22 +45,22 @@ Les 27 trials couvrent :
 
 ---
 
-# 📌 3. Exécution d’un trial (`run_trial.py`)
+# 3. Exécution d’un trial (`run_trial.py`)
 
 `run_trial.py` est appelé soit :
 
 * manuellement (pour tester un trial),
 * automatiquement via `run_full_session.py`.
 
-## ▶️ Commande générale
+##  Commande générale
 
 ```bash
 python run_trial.py [OPTIONS]
 ```
 
-## 🧩 Liste complète des arguments supportés
+## Liste complète des arguments supportés
 
-### 🎯 Paramètres expérimentaux
+### Paramètres expérimentaux
 
 | Argument      | Alias  | Type        | Rôle                                                                      |
 | ------------- | ------ | ----------- | ------------------------------------------------------------------------- |
@@ -71,7 +71,7 @@ python run_trial.py [OPTIONS]
 | `--clouds`    | `-c`   | bool        | Active nuages / surcouche météo.                                          |
 | `--rain`      | `-r`   | bool        | Active pluie (détermine aussi le modèle de véhicule).                     |
 
-### 🚗 Paramètres CARLA
+### Paramètres CARLA
 
 | Argument        | Alias | Type | Description                                         |
 | --------------- | ----- | ---- | --------------------------------------------------- |
@@ -85,7 +85,7 @@ python run_trial.py [OPTIONS]
 | `--seed`        | `-s`  | int  | Seed aléatoire (reproductibilité).                  |
 | `--seedw`       |       | int  | Seed météo.                                         |
 
-### 🧍 Paramètres "hero" / affichage
+### Paramètres "hero" / affichage
 
 | Argument         | Type | Description                                        |
 | ---------------- | ---- | -------------------------------------------------- |
@@ -95,7 +95,7 @@ python run_trial.py [OPTIONS]
 
 ---
 
-# 📌 4. Exécution d'une session complète (`run_full_session.py`)
+# 4. Exécution d'une session complète (`run_full_session.py`)
 
 `run_full_session.py` lit un fichier Excel contenant les paramètres de 27 trials, et exécute :
 
@@ -105,7 +105,7 @@ python run_trial.py [OPTIONS]
 4. …
 5. Jusqu’au trial 27
 
-## ▶️ Commande
+## Commande
 
 ```bash
 python run_full_session.py
@@ -121,7 +121,7 @@ Au lancement, le script :
 
 ---
 
-# 📌 5. Organisation d'une ligne Excel
+# 5. Organisation d'une ligne Excel
 
 Chaque ligne contient une commande complète :
 
@@ -136,19 +136,19 @@ ou pour exp2 :
 ```
 
 Les scripts ne modifient pas ces commandes :
-👉 **elles sont envoyées telles quelles** à `run_trial.py`.
+ **elles sont envoyées telles quelles** à `run_trial.py`.
 
 ---
 
-# 📌 6. Exemples d’utilisation
+# 6. Exemples d’utilisation
 
-### 🔹 Lancer un trial unique
+### Lancer un trial unique
 
 ```bash
 python run_trial.py -v 40 -d 30 -pos 1 -r True
 ```
 
-### 🔹 Lancer une session complète
+### Lancer une session complète
 
 ```bash
 python run_full_session.py
@@ -160,7 +160,7 @@ Puis sélectionner le fichier Excel généré par :
   ou
 * `generate_participant_plan_exp2.py`
 
-### 🔹 Générer un plan d’expérience
+### Générer un plan d’expérience
 
 ```bash
 python generate_participant_plan_exp1.py
@@ -168,26 +168,21 @@ python generate_participant_plan_exp1.py
 
 ---
 
-# 📌 7. Documentation liée
+# 7. Documentation liée
 
-* **Déroulement complet des expériences**
-  👉 [`../unreal_project/experience_flow.md`](../unreal_project/experience_flow.md)
+* [**Déroulement complet des expériences**](../unreal_project/experience_flow.md)
 
-* **Design expérimental & paramètres exposés à Python**
-  👉 [`../experiment_design/README.md`](../experiment_design/README.md)
+* [**Design expérimental & paramètres exposés à Python**](../experiment_design/README.md)
 
-* **Pipeline Unreal → CSV (Blueprints & C++)**
-  👉 [`../unreal_project/README.md`](../unreal_project/README.md)
+* [**Pipeline Unreal vers CSV (Blueprints & C++)**](../unreal_project/README.md)
 
-* **Analyse des données enregistrées**
-  👉 [`../analysis/README.md`](../analysis/README.md)
+* [**Analyse des données enregistrées**](../analysis/README.md)
 
 ---
 
-# 📌 8. Notes de reproductibilité
+#  8. Notes de reproductibilité
 
 * Les plans d’expérience sont générés aléatoirement (ordre des 27 trials).
-* Le seed peut être fixé via `--seed` pour un contrôle total.
 * Les scripts doivent être lancés **pendant que VR Preview est actif** dans Unreal Engine.
 * La sauvegarde des CSV dépend de la touche **S** pressée dans Unreal.
 
