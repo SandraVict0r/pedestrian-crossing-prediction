@@ -59,7 +59,7 @@ Le pipeline repose sur deux composants principaux :
 
 La procédure complète de mise en route, incluant les prérequis matériels, la connexion du casque Meta Quest Pro, l’ouverture du projet Unreal modifié, le passage en VR Preview et le lancement des trials via Python,  est documentée dans :
 
-[➡ **`setup_and_execution_guide.md`**](setup_and_execution_guide.md)
+[ **`setup_and_execution_guide.md`**](setup_and_execution_guide.md)
 
 Ce guide détaille :
 
@@ -76,7 +76,7 @@ Ce guide détaille :
 
 Le déroulé expérimental complet, la logique des deux expériences, la chronologie détaillée des trials ainsi que la description du pipeline Unreal ↔ Python ↔ CSV sont présentés dans :
 
-[➡ **`experience_flow.md`**](experience_flow.md)
+[ **`experience_flow.md`**](experience_flow.md)
 
 Ce document détaille :
 
