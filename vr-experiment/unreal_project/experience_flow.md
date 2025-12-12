@@ -23,31 +23,9 @@ Les données issues des interactions VR sont automatiquement exportées au forma
 
 ## 2. Vue générale du pipeline
 
-```
-+----------------------+         +----------------------------+
-| Scripts Python       | spawn   | Unreal Engine 5.3.2        |
-| - run_trial.py       +-------> | - EyeTracking_Pawn         |
-| - run_full_session.py| params  | - BaseVehiclePawn          |
-+-----------+----------+         | - CSV_File (BP) → RWText   |
-            |                    +--------------+-------------+
-            |                                   |
-            | save                               v
-            |                          +------------------------------+
-            +------------------------->| Dossiers Logs/<N>/           |
-                                       | - peds.csv                   |
-                                       | - cars.csv                   |
-                                       | - gaze.csv                   |
-                                       +------------------------------+
-```
 
 ---
 
 ## 3. Déroulé global d’une session
-
-Chaque session suit les étapes suivantes :
-1. [Préparer l'expérimentation](prepare_experiment.md)
-2. [Péparer le système](setup.md). Unreal Engine doit être lancé **avant** d’appliquer les étapes ci-dessous.
-3. Installation du participant. Mettre le casque sur le paricipant et le préparer à faire l'XP.
-4. [Exécution du script implémentant l'expérience](execution.md)
 
 ---

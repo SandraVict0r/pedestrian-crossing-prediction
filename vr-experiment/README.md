@@ -20,15 +20,40 @@ Le répertoire `vr-experiment/` rassemble tous les éléments nécessaires pour 
 - enregistrer des données synchronisées (piéton, véhicule, regard) ;
 - analyser les comportements via des interfaces Streamlit.
 
-Les deux expériences sont décrites en détail dans :
-
-[`unreal_project/experience_flow.md`](unreal_project/experience_flow.md)
-
 ---
 
 ## 2. Pipeline global : du démarrage à l’analyse
 
-Cette section donne la vue d’ensemble du pipeline. Les détails opérationnels (captures, paramètres, commandes exactes) sont fournis dans les fichiers référencés.
+Cette section donne la vue d’ensemble du pipeline. 
+
+```
++----------------------+         +----------------------------+
+| Scripts Python       | spawn   | Unreal Engine 5.3.2        |
+| - run_trial.py       +-------> | - EyeTracking_Pawn         |
+| - run_full_session.py| params  | - BaseVehiclePawn          |
++-----------+----------+         | - CSV_File (BP) → RWText   |
+            |                    +--------------+-------------+
+            |                                   |
+            | save                               v
+            |                          +------------------------------+
+            +------------------------->| Dossiers Logs/<N>/           |
+                                       | - peds.csv                   |
+                                       | - cars.csv                   |
+                                       | - gaze.csv                   |
+                                       +------------------------------+
+```
+
+Chaque session suit les étapes suivantes :
+1. [Préparer l'expérimentation](prepare_experiment.md)
+2. [Péparer le système](setup.md). Unreal Engine doit être lancé **avant** d’appliquer les étapes ci-dessous.
+3. Installation du participant. Mettre le casque sur le paricipant et le préparer à faire l'XP.
+4. [Exécution du script implémentant l'expérience](execution.md)
+
+Les détails opérationnels (captures, paramètres, commandes exactes) sont fournis dans les fichiers référencés. 
+
+!! Reporter le sous sction suivantes dans les fichiers ???
+
+Les sous-section suivantes référencent de manière plus précise les fichiers et données nécessaires. 
 
 ### 2.1. Préparer le casque et lancer Unreal
 
