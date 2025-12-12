@@ -44,10 +44,10 @@ Cette section donne la vue d’ensemble du pipeline.
 ```
 
 Chaque session suit les étapes suivantes :
-1. [Préparer l'expérimentation](prepare_experiment.md)
-2. [Péparer le système](setup.md). Unreal Engine doit être lancé **avant** d’appliquer les étapes ci-dessous.
+1. [Préparer l'expérimentation](unreal_project/prepare_experiment.md)
+2. [Péparer le système](unreal_project/setup.md). Unreal Engine doit être lancé **avant** d’appliquer les étapes ci-dessous.
 3. Installation du participant. Mettre le casque sur le paricipant et le préparer à faire l'XP.
-4. [Exécution du script implémentant l'expérience](execution.md)
+4. [Exécution du script implémentant l'expérience](unreal_project/execution.md)
 
 Les détails opérationnels (captures, paramètres, commandes exactes) sont fournis dans les fichiers référencés. 
 
