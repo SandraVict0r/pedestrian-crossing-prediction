@@ -33,7 +33,7 @@ Paramètres :
 
 ### Exécuter une session complète (27 trials)
 
-Dans `run_full_session.py`, indiquer le fichier Excel, puis :
+Dans `run_full_session.py` :
 
 ```powershell
 py run_full_session.py
@@ -45,17 +45,15 @@ Le script :
 * les exécute séquentiellement
 * attend une confirmation entre chaque essai
 
-#### Comment lancer la bonne expérience ?
+## 3. Demander au particiant de faire la bonne actions
 
-Il faut que le script `run_full_session.py` cible le bon fichier d'expérience (généré préalablement). Pour cela il faut (hélas) modifier le code qui contient le chemin vers le fichier en question: 
+Suivant l'expérimentation, le participant doit réaliser des actions différentes pour atteindre des objctifs différents:
 
-```python
-excel_file = "participant_2_commands_exp2.xlsx"
-execute_commands_from_excel(excel_file)
-```
+- **Expérience 1** : avec manette **droite** il doit appuyer sur la gachette **après** que la voiture est disparue **quand il pense** que la voiture est arrivée devant lui. Voir [cette page](anatomy_of_an_experiment.md#2-expérience-1--ttc-estimation-snap-crossing) pour plus de détails.
+- **Expérience 2** :  avec manette **gauche** il doit maintenir la gachette appuyée **tant qu'il pense qu'il peut traverser** et la relacher **tant qu'il pense qu'il ne peut pas traverser**. Devrait commencer avec la gachette pressée. Voir [cette page](anatomy_of_an_experiment.md#3-expérience-2--continuous-crossing-decision) pour plus de détails.
 
 
-## 2. Fin du trial
+## 3. Fin du trial
 
 Le trial se termine lorsque :
 
@@ -75,7 +73,7 @@ Avant d’appuyer sur **Entrée** entre 2 trials il **FAUT**:
   * passer au trial suivant
 
 
-## 3. Sauvegarde d’un trial
+## 4. Sauvegarde d’un trial
 
 À la fin de chaque trial, l’expérimentateur doit impérativement respecter l’ordre suivant :
 
@@ -92,7 +90,7 @@ Avant d’appuyer sur **Entrée** entre 2 trials il **FAUT**:
 Cette alternance est obligatoire.
 À défaut, le participant subira des saccades ou une perte de fluidité dans le casque, car Unreal perd temporairement le focus et dégrade le rendu VR.
 
-## 4. Eporter les logs
+## 5. Exporter les logs
 
 En fin d’expérience, les dossiers de logs doivent être déplacés **hors du répertoire Logs/**. Il faut les déplacer dans un répertoire corresondant au couple personne/expérimentation.
 
