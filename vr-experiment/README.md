@@ -69,13 +69,17 @@ Deux modes d’exécution sont prévus :
 - **Trial individuel** (commande unique, utile pour les tests)  
   - `scripts/run_trial.py`
 
-Le comportement attendu (relation entre commandes Python, apparition du véhicule, interaction du participant, sauvegarde des données) est décrit dans :
 
-[`unreal_project/experience_flow.md`](unreal_project/experience_flow.md)
+Le comportement attendu (relation entre commandes Python, apparition du véhicule, interaction du participant, sauvegarde des données) est décrit dans : [`unreal_project/experience_flow.md`](unreal_project/experience_flow.md). Ce document décrit :
+* le déroulement d’un trial (spawn, accélération, tracking, destruction du véhicule) ;
+* la logique des deux expériences (TTC Estimation et Crossing Decision) ;
+* les fichiers générés et leur contenu.
 
-Les détails d’appel des scripts sont documentés dans :
 
-[`experiment_design/scripts_usage.md`](experiment_design/scripts_usage.md)
+La procedure d'appel pour exécuter une expérience (ou un trial) est décrite dans : [`unreal_project/experience_flow.md`](unreal_project/execution.md)
+
+
+Les détails d’appel des scripts sont documentés dans : [`experiment_design/scripts_usage.md`](experiment_design/scripts_usage.md)
 
 ---
 

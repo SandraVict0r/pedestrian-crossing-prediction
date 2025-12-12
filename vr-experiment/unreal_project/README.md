@@ -78,12 +78,6 @@ Le déroulé expérimental complet, la logique des deux expériences, la chronol
 
 [ **`experience_flow.md`**](experience_flow.md)
 
-Ce document détaille :
-
-* la structure d’un trial (spawn, approche, interaction, disparition) ;
-* les différences entre les expériences Exp1 (TTC Estimation) et Exp2 (Continuous Crossing) ;
-* la nature et l’usage des données enregistrées ;
-* l’organisation d’une session complète.
 
 ---
 

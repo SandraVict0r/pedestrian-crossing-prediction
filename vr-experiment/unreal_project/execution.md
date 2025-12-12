@@ -1,18 +1,10 @@
-# Pour comprendre le déroulement complet des expériences
+# Procedure d'exécution d'une expérience
 
-Avant de lancer les scripts Python, consulter :
+Il y a deux alternatives:
+- soit lancer un trial unique. Utile pour deboguer les trials.
+- soit lancer l'exécution d'une expérience complète (== 27 trials). 
 
-[**→ `experience_flow.md`**](experience_flow.md)
-
-Ce document décrit :
-
-* le déroulement d’un trial (spawn, accélération, tracking, destruction du véhicule) ;
-* la logique des deux expériences (TTC Estimation et Crossing Decision) ;
-* les fichiers générés et leur contenu.
-
----
-
-# 6. Lancer un trial via Python
+# 1. Lancer un trial via Python
 
 Ouvrir PowerShell dans :
 
@@ -35,7 +27,7 @@ Paramètres :
 
 ---
 
-# 7. Exécuter une session complète (27 trials)
+# 2. Exécuter une session complète (27 trials)
 
 Dans `run_full_session.py`, indiquer le fichier Excel, puis :
 
@@ -49,13 +41,12 @@ Le script :
 * les exécute séquentiellement
 * attend une confirmation entre chaque essai
 
-## Vérification indispensable
+## !! Vérification indispensable !!
 
-Avant d’appuyer sur **Entrée** :
+Avant d’appuyer sur **Entrée** entre 2 trials il **FAUT**:
 
 * vérifier que le véhicule a **disparu dans Unreal**
 * sinon :
-
   * stopper avec `CTRL + C`
   * corriger
   * passer au trial suivant
