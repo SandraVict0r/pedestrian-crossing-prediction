@@ -1,10 +1,14 @@
 # Procedure d'exécution d'une expérience
 
+
+## 1. Lancer le script
+
 Il y a deux alternatives:
 - soit lancer un trial unique. Utile pour deboguer les trials.
 - soit lancer l'exécution d'une expérience complète (== 27 trials). 
 
-# 1. Lancer un trial via Python
+
+### Lancer un trial via Python
 
 Ouvrir PowerShell dans :
 
@@ -12,7 +16,7 @@ Ouvrir PowerShell dans :
 C:\Users\carlaue5.3\Documents\pedestrian-crossing-prediction\vr-experiment\scripts\
 ```
 
-### Exemple
+#### Exemple
 
 ```powershell
 py run_trial.py -v 40 -d 60 -pos 2 -r True -c True
@@ -27,7 +31,7 @@ Paramètres :
 
 ---
 
-# 2. Exécuter une session complète (27 trials)
+### Exécuter une session complète (27 trials)
 
 Dans `run_full_session.py`, indiquer le fichier Excel, puis :
 
@@ -41,7 +45,7 @@ Le script :
 * les exécute séquentiellement
 * attend une confirmation entre chaque essai
 
-## Comment lancer la bonne expérience ?
+#### Comment lancer la bonne expérience ?
 
 Il faut que le script `run_full_session.py` cible le bon fichier d'expérience (généré préalablement). Pour cela il faut (hélas) modifier le code qui contient le chemin vers le fichier en question: 
 
@@ -51,7 +55,7 @@ execute_commands_from_excel(excel_file)
 ```
 
 
-## 3 Fin du trial
+## 2. Fin du trial
 
 Le trial se termine lorsque :
 
@@ -71,24 +75,24 @@ Avant d’appuyer sur **Entrée** entre 2 trials il **FAUT**:
   * passer au trial suivant
 
 
-## 4 Sauvegarde d’un trial
+## 3. Sauvegarde d’un trial
 
 À la fin de chaque trial, l’expérimentateur doit impérativement respecter l’ordre suivant :
 
 1. Cliquer sur la fenêtre Unreal (VR Preview) pour lui redonner le focus.
 
-2. Presser S afin d’enregistrer les buffers et les réinitialiser.
+2. Presser **Entrée** afin d’enregistrer les buffers et les réinitialiser. Cela écrit les fichiers dans un sous dossier **Logs/<n>** ou `n` est le numéro du trial courant (incrmental par rapport aux dossier logs existants).
 
 3. Revenir dans le terminal Python (PowerShell).
 
-4. Presser Entrée pour lancer le trial suivant.
+4. Presser **Entrée** pour lancer le trial suivant.
 
 5. Revenir immédiatement à la fenêtre Unreal.
 
 Cette alternance est obligatoire.
 À défaut, le participant subira des saccades ou une perte de fluidité dans le casque, car Unreal perd temporairement le focus et dégrade le rendu VR.
 
-## 5 Eporter les logs
+## 4. Eporter les logs
 
 En fin d’expérience, les dossiers de logs doivent être déplacés **hors du répertoire Logs/**. Il faut les déplacer dans un répertoire corresondant au couple personne/expérimentation.
 
