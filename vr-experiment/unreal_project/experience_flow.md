@@ -48,7 +48,6 @@ Chaque session suit les étapes suivantes :
 1. [Péparer le système](setup.md). Unreal Engine doit être lancé **avant** d’appliquer les étapes ci-dessous.
 2. Installation du participant. Mettre le casque sur le paricipant et le préparer à faire l'XP.
 3. [Exécution du script implémentant l'expérience](execution.md)
-4. Export final des logs
 
 ---
 
