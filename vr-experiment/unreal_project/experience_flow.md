@@ -47,11 +47,8 @@ Les données issues des interactions VR sont automatiquement exportées au forma
 Chaque session suit les étapes suivantes :
 1. [Péparer le système](setup.md). Unreal Engine doit être lancé **avant** d’appliquer les étapes ci-dessous.
 2. Installation du participant. Mettre le casque sur le paricipant et le préparer à faire l'XP.
-3. [Lancement du script Python](execution.md)
-5. Exécution séquentielle des trials
-6. Sauvegarde des données
-7. Changement d’expérience
-8. Export final des logs
+3. [Exécution du script implémentant l'expérience](execution.md)
+4. Export final des logs
 
 ---
 
@@ -96,36 +93,6 @@ Le script `run_full_session.py` :
 ### 5.3 Interaction du participant
 
 Elle dépend du protocole expérimental (sections 6 et 7).
-
-### 5.4 Fin du trial
-
-Le trial se termine lorsque :
-
-* le véhicule atteint la distance de disparition définie (**Expérience 1**) ;
-* le véhicule passe devant le participant, effectue un virage, puis disparaît (**Expérience 2**).
-
-La destruction de l’acteur véhicule est confirmée côté Python par :
-
-**Véhicule détruit**
-
-### 5.5 Sauvegarde d’un trial
-
-À la fin de chaque trial, l’expérimentateur doit impérativement respecter l’ordre suivant :
-
-1. Cliquer sur la fenêtre Unreal (VR Preview) pour lui redonner le focus.
-
-2. Presser S afin d’enregistrer les buffers et les réinitialiser.
-
-3. Revenir dans le terminal Python (PowerShell).
-
-4. Presser Entrée pour lancer le trial suivant.
-
-5. Revenir immédiatement à la fenêtre Unreal.
-
-Cette alternance est obligatoire.
-À défaut, le participant subira des saccades ou une perte de fluidité dans le casque, car Unreal perd temporairement le focus et dégrade le rendu VR.
-
-En fin d’expérience, les dossiers de logs doivent être déplacés hors du répertoire Logs/.
 
 ---
 

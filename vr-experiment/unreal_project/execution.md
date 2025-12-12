@@ -41,7 +41,26 @@ Le script :
 * les exécute séquentiellement
 * attend une confirmation entre chaque essai
 
-## !! Vérification indispensable !!
+## Comment lancer la bonne expérience ?
+
+Il faut que le script `run_full_session.py` cible le bon fichier d'expérience (généré préalablement). Pour cela il faut (hélas) modifier le code qui contient le chemin vers le fichier en question: 
+
+```python
+excel_file = "participant_2_commands_exp2.xlsx"
+execute_commands_from_excel(excel_file)
+```
+
+
+## 3 Fin du trial
+
+Le trial se termine lorsque :
+
+* le véhicule atteint la distance de disparition définie (**Expérience 1**) ;
+* le véhicule passe devant le participant, effectue un virage, puis disparaît (**Expérience 2**).
+
+La destruction de l’acteur véhicule est confirmée côté Python par : **"Véhicule détruit"**
+
+### !! Vérification indispensable !!
 
 Avant d’appuyer sur **Entrée** entre 2 trials il **FAUT**:
 
@@ -51,6 +70,22 @@ Avant d’appuyer sur **Entrée** entre 2 trials il **FAUT**:
   * corriger
   * passer au trial suivant
 
-Pour la logique détaillée du déroulement expérimental :
 
-[**→ `experience_flow.md`**](experience_flow.md)
+## 4 Sauvegarde d’un trial
+
+À la fin de chaque trial, l’expérimentateur doit impérativement respecter l’ordre suivant :
+
+1. Cliquer sur la fenêtre Unreal (VR Preview) pour lui redonner le focus.
+
+2. Presser S afin d’enregistrer les buffers et les réinitialiser.
+
+3. Revenir dans le terminal Python (PowerShell).
+
+4. Presser Entrée pour lancer le trial suivant.
+
+5. Revenir immédiatement à la fenêtre Unreal.
+
+Cette alternance est obligatoire.
+À défaut, le participant subira des saccades ou une perte de fluidité dans le casque, car Unreal perd temporairement le focus et dégrade le rendu VR.
+
+En fin d’expérience, les dossiers de logs doivent être déplacés **hors du répertoire Logs/**.
