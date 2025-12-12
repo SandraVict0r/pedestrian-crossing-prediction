@@ -45,11 +45,9 @@ Les données issues des interactions VR sont automatiquement exportées au forma
 ## 3. Déroulé global d’une session
 
 Chaque session suit les étapes suivantes :
-
-1. Installation du participant
-2. Lancement d’Unreal Engine (VR Preview)
-3. Chargement de la scène dans le casque
-4. Lancement du script Python
+1. [Péparer le système](setup.md). Unreal Engine doit être lancé **avant** d’appliquer les étapes ci-dessous.
+2. Installation du participant. Mettre le casque sur le paricipant et le préparer à faire l'XP.
+3. [Lancement du script Python](execution.md)
 5. Exécution séquentielle des trials
 6. Sauvegarde des données
 7. Changement d’expérience
@@ -59,23 +57,7 @@ Chaque session suit les étapes suivantes :
 
 ## 4. Préparation avant chaque session
 
-### 4.1 Activation du VR Preview dans Unreal Engine
-
-Unreal Engine doit être lancé **avant** d’appliquer les étapes ci-dessous.
-Si ce n’est pas encore fait, suivre strictement :
-
-[setup and execution](setup_and_execution_guide.md)
-
-Une fois Unreal ouvert et le casque opérationnel :
-
-1. Vérifier que le casque est bien reconnu par Unreal.
-2. Dans l’éditeur, sélectionner **Play → VR Preview**.
-![vr preview](img/selection_vr_preview.png)
-![lancement](img/lancement_simu.png)
-
-### 4.2 Préparation du terminal Python
-
-Selon l’expérience :
+Selon l’expérience il faut identifier le bon fichier à exécuter:
 
 * **Expérience 1** : fichier Excel généré via `generate_participant_plan_exp1.py`
 * **Expérience 2** : fichier généré via `generate_participant_plan_exp2.py`

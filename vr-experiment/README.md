@@ -34,7 +34,7 @@ Cette section donne la vue d’ensemble du pipeline. Les détails opérationnels
 
 L’ensemble de la procédure matérielle et logicielle (branchement du Meta Quest Pro, gestion de Meta Quest Link, contraintes de mise à jour, condition de la “salle grise”, lancement du projet Unreal modifié, passage en VR Preview) est décrit dans :
 
-[`unreal_project/setup_and_execution_guide.md`](unreal_project/setup_and_execution_guide.md)
+[`unreal_project/setup_and_execution_guide.md`](unreal_project/setup.md)
 
 Ce guide doit impérativement être suivi avant de lancer les scripts Python.
 
