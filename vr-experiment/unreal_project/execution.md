@@ -88,4 +88,8 @@ Avant d’appuyer sur **Entrée** entre 2 trials il **FAUT**:
 Cette alternance est obligatoire.
 À défaut, le participant subira des saccades ou une perte de fluidité dans le casque, car Unreal perd temporairement le focus et dégrade le rendu VR.
 
-En fin d’expérience, les dossiers de logs doivent être déplacés **hors du répertoire Logs/**.
+## 5 Eporter les logs
+
+En fin d’expérience, les dossiers de logs doivent être déplacés **hors du répertoire Logs/**. Il faut les déplacer dans un répertoire corresondant au couple personne/expérimentation.
+
+
