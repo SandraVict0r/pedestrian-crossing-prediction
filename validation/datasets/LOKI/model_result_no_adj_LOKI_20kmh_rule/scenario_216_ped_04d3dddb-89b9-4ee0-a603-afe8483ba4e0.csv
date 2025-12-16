@@ -1,0 +1,4 @@
+scenario_id,frame_id,pedestrian_id,weather,velocity_kmh,distance_m,real_height_cm,true_label,predicted_label
+216,56,04d3dddb-89b9-4ee0-a603-afe8483ba4e0,clear,20.470797185265443,52.72484797549383,178.8,0,True
+216,58,04d3dddb-89b9-4ee0-a603-afe8483ba4e0,clear,19.12644261380026,50.36182472257303,178.8,0,True
+216,60,04d3dddb-89b9-4ee0-a603-afe8483ba4e0,clear,20.004710592331023,47.910758921669355,178.8,0,True
