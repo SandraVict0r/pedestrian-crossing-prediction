@@ -1,0 +1,17 @@
+frame,true_label,predicted_label,weather,real_height_cm,velocity_kmh,distance_m,scenario
+16084,False,False,clear,171,36.0,5.93,default
+16085,False,False,clear,171,36.0,4.88,default
+16086,False,False,clear,171,36.0,4.88,default
+16087,False,False,clear,171,36.0,4.88,default
+16088,False,False,clear,171,36.0,3.83,default
+16089,False,False,clear,171,36.0,3.32,default
+16090,False,False,clear,171,36.0,2.95,default
+16091,False,False,clear,171,36.0,2.81,default
+16092,False,False,clear,171,36.0,2.81,default
+16093,False,False,clear,171,36.0,2.81,default
+16094,False,False,clear,171,36.0,1.77,default
+16095,False,False,clear,171,36.0,1.77,default
+16096,False,False,clear,171,36.0,1.77,default
+16097,False,False,clear,171,36.0,0.73,default
+16098,False,False,clear,171,36.0,0.29,default
+16099,False,False,clear,171,36.0,0.0,default

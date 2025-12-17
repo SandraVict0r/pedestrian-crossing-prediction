@@ -1,0 +1,13 @@
+frame,true_label,predicted_label,weather,real_height_cm,velocity_kmh,distance_m,scenario
+12003,False,False,clear,171,42.0,6.01,default
+12004,False,False,clear,171,42.0,6.01,default
+12005,False,False,clear,171,42.0,5.44,default
+12006,False,False,clear,171,42.0,4.25,default
+12007,False,False,clear,171,42.0,2.45,default
+12008,False,False,clear,171,42.0,2.45,default
+12009,False,False,clear,171,42.0,2.45,default
+12010,False,False,clear,171,42.0,2.45,default
+12011,False,False,clear,171,42.0,0.82,default
+12012,False,False,clear,171,42.0,0.82,default
+12013,False,False,clear,171,42.0,0.82,default
+12014,False,False,clear,171,42.0,0.0,default

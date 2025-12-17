@@ -1,0 +1,24 @@
+[batch 3] START at 2025-09-17T12:47:40
+Using tmp dir: C:\temp_pie_processing\batch_3
+Mounting modes: set05:junction
+Traitement de set05/video_0001
+7 piétons détectés
+Piéton 5_1_1732
+CSV déjà existante pour 5_1_1732, skip.
+Piéton 5_1_1739
+CSV déjà existante pour 5_1_1739, skip.
+Piéton 5_1_1741
+CSV déjà existante pour 5_1_1741, skip.
+Piéton 5_1_1742
+CSV déjà existante pour 5_1_1742, skip.
+Piéton 5_1_1746
+CSV déjà existante pour 5_1_1746, skip.
+Piéton 5_1_1744
+CSV déjà existante pour 5_1_1744, skip.
+Piéton 5_1_1749
+CSV déjà existante pour 5_1_1749, skip.
+Traitement de set05/video_0002
+1 piétons détectés
+Piéton 5_2_1752
+CSV déjà existante pour 5_2_1752, skip.
+[batch 3] END status=OK duration=1.11s

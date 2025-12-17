@@ -1,0 +1,263 @@
+frame,true_label,predicted_label,weather,real_height_cm,velocity_kmh,distance_m,scenario,veh_distance_m,veh_velocity_kmh_used,veh_behavior,veh_bbox_xtl,veh_bbox_ytl,veh_bbox_xbr,veh_bbox_ybr
+6476,False,False,clear,171,22.0,23.16,other vehicle,13.14,22.0,ahead,991.9,804.11,1090.57,879.76
+6477,False,False,clear,171,22.0,23.16,other vehicle,13.18,22.0,ahead,991.71,804.25,1090.9,880.3
+6478,False,False,clear,171,22.0,22.87,other vehicle,12.92,22.0,ahead,991.17,804.05,1091.18,880.62
+6479,False,False,clear,171,22.0,22.57,other vehicle,12.66,22.0,ahead,990.63,803.84,1091.45,880.93
+6480,False,False,clear,171,22.0,22.57,other vehicle,12.69,22.0,ahead,990.09,803.64,1091.73,881.25
+6481,False,False,clear,171,22.0,22.29,other vehicle,12.44,22.0,ahead,989.55,803.43,1092.0,881.56
+6482,False,False,clear,171,22.0,22.0,other vehicle,12.19,22.0,ahead,989.01,803.23,1092.28,881.88
+6483,False,False,clear,171,22.0,22.0,other vehicle,12.22,22.0,ahead,988.47,803.03,1092.55,882.2
+6484,False,False,clear,171,22.0,21.4,other vehicle,11.65,22.0,ahead,987.93,802.82,1092.83,882.51
+6485,False,False,clear,171,22.0,21.4,other vehicle,11.68,22.0,ahead,987.39,802.62,1093.1,882.83
+6486,False,False,clear,171,22.0,21.4,other vehicle,11.71,22.0,ahead,986.85,802.41,1093.38,883.14
+6487,False,False,clear,171,22.0,21.09,other vehicle,11.44,22.0,ahead,986.31,802.21,1093.65,883.46
+6488,False,False,clear,171,22.0,20.78,other vehicle,11.17,22.0,ahead,985.77,802.01,1093.93,883.78
+6489,False,False,clear,171,22.0,20.78,other vehicle,11.21,22.0,ahead,985.23,801.8,1094.2,884.09
+6490,False,False,clear,171,22.0,20.17,other vehicle,10.63,22.0,ahead,984.69,801.6,1094.48,884.41
+6491,False,False,clear,171,22.0,20.17,other vehicle,10.67,22.0,ahead,984.15,801.39,1094.75,884.72
+6492,False,False,clear,171,22.0,20.17,other vehicle,10.7,22.0,ahead,983.62,801.19,1095.03,885.04
+6493,False,False,clear,171,20.0,20.17,other vehicle,10.73,20.0,ahead,983.08,800.99,1095.3,885.36
+6494,False,False,clear,171,20.0,19.61,other vehicle,10.21,20.0,ahead,982.54,800.78,1095.58,885.67
+6495,False,False,clear,171,20.0,19.61,other vehicle,10.25,20.0,ahead,982.0,800.58,1095.85,885.99
+6496,False,False,clear,171,20.0,19.32,other vehicle,9.98,20.0,ahead,981.46,800.37,1096.12,886.3
+6497,False,False,clear,171,20.0,19.02,other vehicle,9.72,20.0,ahead,980.92,800.17,1096.4,886.62
+6498,False,False,clear,171,20.0,19.02,other vehicle,9.76,20.0,ahead,980.38,799.97,1096.68,886.94
+6499,False,False,clear,171,20.0,18.41,other vehicle,9.19,20.0,ahead,979.84,799.76,1096.95,887.25
+6500,False,False,clear,171,20.0,18.41,other vehicle,9.23,20.0,ahead,979.3,799.56,1097.23,887.57
+6501,False,False,clear,171,20.0,18.41,other vehicle,9.26,20.0,ahead,978.76,799.35,1097.5,887.88
+6502,False,False,clear,171,20.0,17.83,other vehicle,8.73,20.0,ahead,978.22,799.15,1097.78,888.2
+6503,False,False,clear,171,20.0,17.83,other vehicle,8.77,20.0,ahead,977.68,798.95,1098.05,888.52
+6504,False,False,clear,171,20.0,17.83,other vehicle,8.81,20.0,ahead,977.14,798.74,1098.33,888.83
+6505,False,False,clear,171,20.0,17.21,other vehicle,8.25,20.0,ahead,976.6,798.54,1098.6,889.15
+6506,False,False,clear,171,20.0,17.21,other vehicle,8.29,20.0,ahead,976.06,798.33,1098.88,889.46
+6507,False,False,clear,171,20.0,17.21,other vehicle,8.31,20.0,ahead,975.52,798.13,1099.15,889.78
+6508,False,False,clear,171,20.0,16.91,other vehicle,8.04,20.0,ahead,974.83,797.75,1099.28,889.92
+6509,False,False,clear,171,20.0,16.61,other vehicle,7.78,20.0,ahead,974.15,797.38,1099.41,890.07
+6510,False,False,clear,171,20.0,16.61,other vehicle,7.81,20.0,ahead,973.46,797.0,1099.53,890.22
+6511,False,False,clear,171,20.0,16.01,other vehicle,7.27,20.0,ahead,972.77,796.63,1099.66,890.36
+6512,False,False,clear,171,20.0,16.01,other vehicle,7.3,20.0,ahead,972.09,796.25,1099.79,890.5
+6513,False,False,clear,171,20.0,16.01,other vehicle,7.33,20.0,ahead,971.4,795.88,1099.92,890.65
+6514,False,False,clear,171,20.0,15.43,other vehicle,6.81,20.0,ahead,970.71,795.5,1100.05,890.79
+6515,False,False,clear,171,20.0,15.43,other vehicle,6.84,20.0,ahead,970.02,795.13,1100.18,890.94
+6516,False,False,clear,171,20.0,15.43,other vehicle,6.87,20.0,ahead,969.34,794.75,1100.3,891.09
+6517,False,False,clear,171,20.0,15.36,other vehicle,6.83,20.0,ahead,968.65,794.38,1100.43,891.23
+6518,False,False,clear,171,20.0,15.16,other vehicle,6.67,20.0,ahead,967.96,794.0,1100.56,891.38
+6519,False,False,clear,171,20.0,14.88,other vehicle,6.44,20.0,ahead,967.28,793.63,1100.69,891.52
+6520,False,False,clear,171,20.0,14.34,other vehicle,5.98,20.0,ahead,966.59,793.25,1100.82,891.66
+6521,False,False,clear,171,20.0,14.34,other vehicle,6.01,20.0,ahead,965.9,792.88,1100.94,891.81
+6522,False,False,clear,171,20.0,14.34,other vehicle,6.05,20.0,ahead,965.22,792.5,1101.07,891.96
+6523,False,False,clear,171,20.0,13.83,other vehicle,5.61,20.0,ahead,964.53,792.13,1101.2,892.1
+6524,False,False,clear,171,19.01,13.83,other vehicle,5.66,19.01,ahead,963.52,792.25,1100.43,892.56
+6525,False,False,clear,171,18.01,13.83,other vehicle,5.71,18.01,ahead,962.51,792.36,1099.65,893.02
+6526,False,False,clear,171,18.01,13.75,other vehicle,5.69,18.01,ahead,961.49,792.48,1098.88,893.48
+6527,False,False,clear,171,18.01,13.56,other vehicle,5.56,18.01,ahead,960.48,792.6,1098.11,893.94
+6528,False,False,clear,171,18.01,13.3,other vehicle,5.37,18.01,ahead,959.47,792.71,1097.34,894.4
+6529,False,False,clear,171,18.01,12.74,other vehicle,4.93,18.01,ahead,958.46,792.83,1096.56,894.87
+6530,False,False,clear,171,18.01,12.74,other vehicle,4.97,18.01,ahead,957.45,792.95,1095.79,895.33
+6531,False,False,clear,171,18.01,12.74,other vehicle,5.01,18.01,ahead,956.43,793.07,1095.02,895.79
+6532,False,False,clear,171,18.01,12.24,other vehicle,4.64,18.01,ahead,955.42,793.18,1094.24,896.25
+6533,False,False,clear,171,18.01,12.24,other vehicle,4.69,18.01,ahead,954.41,793.3,1093.47,896.71
+6534,False,False,clear,171,18.01,12.24,other vehicle,4.74,18.01,ahead,953.75,793.33,1093.05,897.08
+6535,False,False,clear,171,18.01,11.71,other vehicle,4.36,18.01,ahead,953.1,793.36,1092.63,897.46
+6536,False,False,clear,171,18.01,11.71,other vehicle,4.4,18.01,ahead,952.44,793.38,1092.22,897.83
+6537,False,False,clear,171,18.01,11.71,other vehicle,4.45,18.01,ahead,951.78,793.41,1091.8,898.2
+6538,False,False,clear,171,17.49,11.64,other vehicle,4.42,17.49,ahead,950.57,793.06,1091.1,897.96
+6539,False,False,clear,171,16.52,11.47,other vehicle,4.32,16.52,ahead,949.37,792.71,1090.4,897.73
+6540,False,False,clear,171,16.0,11.23,other vehicle,4.16,16.0,ahead,948.16,792.37,1089.7,897.49
+6541,False,False,clear,171,16.0,10.75,other vehicle,3.86,16.0,ahead,946.96,792.02,1089.0,897.25
+6542,False,False,clear,171,16.0,10.75,other vehicle,3.88,16.0,ahead,945.75,791.67,1088.3,897.02
+6543,False,False,clear,171,16.0,10.75,other vehicle,3.91,16.0,ahead,944.55,791.32,1087.6,896.78
+6544,False,False,clear,171,16.0,10.26,other vehicle,3.64,16.0,ahead,943.34,790.97,1086.9,896.55
+6545,False,False,clear,171,16.0,10.26,other vehicle,3.67,16.0,ahead,942.14,790.62,1086.2,896.31
+6546,False,False,clear,171,16.0,10.26,other vehicle,3.7,16.0,ahead,940.93,790.28,1085.5,896.07
+6547,False,False,clear,171,16.0,9.81,other vehicle,3.5,16.0,ahead,939.73,789.93,1084.8,895.84
+6548,False,False,clear,171,16.0,9.81,other vehicle,3.54,16.0,ahead,938.52,789.58,1084.1,895.6
+6549,False,False,clear,171,16.0,9.81,other vehicle,3.58,16.0,ahead,938.04,789.73,1083.41,895.65
+6550,False,True,clear,171,16.0,9.36,ego,,,,,,,
+6551,False,True,clear,171,16.0,9.36,ego,,,,,,,
+6552,False,True,clear,171,16.0,9.36,ego,,,,,,,
+6553,False,True,clear,171,16.0,8.93,ego,,,,,,,
+6554,False,True,clear,171,16.0,8.93,ego,,,,,,,
+6555,False,True,clear,171,16.0,8.93,ego,,,,,,,
+6556,False,True,clear,171,15.0,8.71,ego,,,,,,,
+6557,False,True,clear,171,14.0,8.5,ego,,,,,,,
+6558,False,True,clear,171,14.0,8.5,ego,,,,,,,
+6559,False,True,clear,171,14.0,8.44,ego,,,,,,,
+6560,False,True,clear,171,14.0,8.29,ego,,,,,,,
+6561,False,True,clear,171,14.0,8.12,ego,,,,,,,
+6562,False,True,clear,171,14.0,7.88,ego,,,,,,,
+6563,False,True,clear,171,14.0,7.73,ego,,,,,,,
+6564,False,True,clear,171,14.0,7.73,ego,,,,,,,
+6565,False,True,clear,171,14.0,7.53,ego,,,,,,,
+6566,False,True,clear,171,14.0,7.34,ego,,,,,,,
+6567,False,True,clear,171,14.0,7.34,ego,,,,,,,
+6568,False,True,clear,171,13.66,7.28,ego,,,,,,,
+6569,False,True,clear,171,12.88,7.14,ego,,,,,,,
+6570,False,True,clear,171,12.01,6.99,ego,,,,,,,
+6571,False,True,clear,171,10.81,6.81,ego,,,,,,,
+6572,False,True,clear,171,10.01,6.69,ego,,,,,,,
+6573,False,True,clear,171,10.01,6.69,ego,,,,,,,
+6574,False,True,clear,171,10.01,6.52,ego,,,,,,,
+6575,False,True,clear,171,10.01,6.36,ego,,,,,,,
+6576,False,True,clear,171,10.01,6.36,ego,,,,,,,
+6577,False,True,clear,171,10.01,6.31,ego,,,,,,,
+6578,False,True,clear,171,10.01,6.2,ego,,,,,,,
+6579,False,True,clear,171,10.01,6.07,ego,,,,,,,
+6580,False,True,clear,171,10.01,5.9,ego,,,,,,,
+6581,False,True,clear,171,10.01,5.78,ego,,,,,,,
+6582,False,True,clear,171,10.01,5.78,ego,,,,,,,
+6583,False,True,clear,171,8.0,5.53,ego,,,,,,,
+6584,False,True,clear,171,8.0,5.53,ego,,,,,,,
+6585,False,True,clear,171,8.0,5.53,ego,,,,,,,
+6586,False,True,clear,171,8.0,5.41,ego,,,,,,,
+6587,False,True,clear,171,8.0,5.29,ego,,,,,,,
+6588,False,True,clear,171,8.0,5.29,ego,,,,,,,
+6589,False,True,clear,171,7.0,5.18,ego,,,,,,,
+6590,False,True,clear,171,6.0,5.06,ego,,,,,,,
+6591,False,True,clear,171,6.0,5.06,ego,,,,,,,
+6592,False,True,clear,171,6.0,4.97,ego,,,,,,,
+6593,False,True,clear,171,6.0,4.87,ego,,,,,,,
+6594,False,True,clear,171,6.0,4.87,ego,,,,,,,
+6595,False,True,clear,171,6.0,4.76,ego,,,,,,,
+6596,False,True,clear,171,6.0,4.65,ego,,,,,,,
+6597,False,True,clear,171,6.0,4.65,ego,,,,,,,
+6598,False,True,clear,171,6.0,4.62,ego,,,,,,,
+6599,False,True,clear,171,6.0,4.56,ego,,,,,,,
+6600,False,True,clear,171,6.0,4.51,ego,,,,,,,
+6601,False,True,clear,171,5.01,4.42,ego,,,,,,,
+6602,False,True,clear,171,4.01,4.35,ego,,,,,,,
+6603,False,True,clear,171,4.01,4.35,ego,,,,,,,
+6604,False,True,clear,171,4.01,4.28,ego,,,,,,,
+6605,False,True,clear,171,4.01,4.2,ego,,,,,,,
+6606,False,True,clear,171,4.01,4.2,ego,,,,,,,
+6607,False,True,clear,171,4.01,4.09,ego,,,,,,,
+6608,False,True,clear,171,4.01,4.09,ego,,,,,,,
+6609,False,True,clear,171,4.01,4.09,ego,,,,,,,
+6610,False,True,clear,171,3.0,4.04,ego,,,,,,,
+6611,False,True,clear,171,2.0,3.99,ego,,,,,,,
+6612,False,True,clear,171,2.0,3.99,ego,,,,,,,
+6613,False,True,clear,171,2.0,3.96,ego,,,,,,,
+6614,False,True,clear,171,0.0,3.96,ego,,,,,,,
+6615,False,True,clear,171,0.0,3.96,ego,,,,,,,
+6616,False,True,clear,171,0.0,3.86,ego,,,,,,,
+6617,False,True,clear,171,0.0,3.86,ego,,,,,,,
+6618,False,True,clear,171,0.0,3.86,ego,,,,,,,
+6619,False,True,clear,171,0.0,3.84,ego,,,,,,,
+6620,False,True,clear,171,0.0,3.84,ego,,,,,,,
+6621,False,True,clear,171,0.0,3.84,ego,,,,,,,
+6622,False,True,clear,171,0.0,3.78,ego,,,,,,,
+6623,False,True,clear,171,0.0,3.78,ego,,,,,,,
+6624,False,True,clear,171,0.0,3.78,ego,,,,,,,
+6625,False,True,clear,171,0.0,3.74,ego,,,,,,,
+6626,False,True,clear,171,0.0,3.74,ego,,,,,,,
+6627,False,True,clear,171,0.0,3.74,ego,,,,,,,
+6628,False,True,clear,171,0.0,3.71,ego,,,,,,,
+6629,False,True,clear,171,0.0,3.71,ego,,,,,,,
+6630,False,True,clear,171,0.0,3.71,ego,,,,,,,
+6631,False,True,clear,171,0.0,3.69,ego,,,,,,,
+6632,False,True,clear,171,0.0,3.69,ego,,,,,,,
+6633,False,True,clear,171,0.0,3.69,ego,,,,,,,
+6634,False,True,clear,171,0.0,3.66,ego,,,,,,,
+6635,False,True,clear,171,0.0,3.66,ego,,,,,,,
+6636,False,True,clear,171,0.0,3.66,ego,,,,,,,
+6637,False,True,clear,171,0.0,3.65,ego,,,,,,,
+6638,False,True,clear,171,0.0,3.64,ego,,,,,,,
+6639,False,True,clear,171,0.0,3.64,ego,,,,,,,
+6640,False,True,clear,171,0.0,3.62,ego,,,,,,,
+6641,False,True,clear,171,0.0,3.62,ego,,,,,,,
+6642,False,True,clear,171,0.0,3.62,ego,,,,,,,
+6643,False,True,clear,171,0.0,3.6,ego,,,,,,,
+6644,False,True,clear,171,0.0,3.6,ego,,,,,,,
+6645,False,True,clear,171,0.0,3.6,ego,,,,,,,
+6646,False,True,clear,171,0.0,3.59,ego,,,,,,,
+6647,False,True,clear,171,0.0,3.59,ego,,,,,,,
+6648,False,True,clear,171,0.0,3.58,ego,,,,,,,
+6649,False,True,clear,171,0.0,3.56,ego,,,,,,,
+6650,False,True,clear,171,0.0,3.56,ego,,,,,,,
+6651,False,True,clear,171,0.0,3.56,ego,,,,,,,
+6652,False,True,clear,171,0.0,3.55,ego,,,,,,,
+6653,False,True,clear,171,0.0,3.55,ego,,,,,,,
+6654,False,True,clear,171,0.0,3.55,ego,,,,,,,
+6655,False,True,clear,171,0.0,3.55,ego,,,,,,,
+6656,False,True,clear,171,0.0,3.55,ego,,,,,,,
+6657,False,True,clear,171,0.0,3.54,ego,,,,,,,
+6658,False,True,clear,171,0.0,3.52,ego,,,,,,,
+6659,False,True,clear,171,0.0,3.52,ego,,,,,,,
+6660,False,True,clear,171,0.0,3.52,ego,,,,,,,
+6661,False,True,clear,171,0.0,3.52,ego,,,,,,,
+6662,False,True,clear,171,0.0,3.52,ego,,,,,,,
+6663,False,True,clear,171,0.0,3.52,ego,,,,,,,
+6664,False,True,clear,171,0.0,3.5,ego,,,,,,,
+6665,False,True,clear,171,0.0,3.5,ego,,,,,,,
+6666,False,True,clear,171,0.0,3.5,ego,,,,,,,
+6667,False,True,clear,171,0.0,3.5,ego,,,,,,,
+6668,False,True,clear,171,0.0,3.49,ego,,,,,,,
+6669,False,True,clear,171,0.0,3.49,ego,,,,,,,
+6670,False,True,clear,171,0.0,3.48,ego,,,,,,,
+6671,False,True,clear,171,0.0,3.48,ego,,,,,,,
+6672,False,True,clear,171,0.0,3.48,ego,,,,,,,
+6673,False,True,clear,171,0.0,3.45,ego,,,,,,,
+6674,False,True,clear,171,0.0,3.45,ego,,,,,,,
+6675,False,True,clear,171,0.0,3.45,ego,,,,,,,
+6676,False,True,clear,171,0.0,3.42,ego,,,,,,,
+6677,False,True,clear,171,0.0,3.42,ego,,,,,,,
+6678,False,True,clear,171,0.0,3.42,ego,,,,,,,
+6679,False,True,clear,171,0.0,3.39,ego,,,,,,,
+6680,False,True,clear,171,0.0,3.39,ego,,,,,,,
+6681,False,True,clear,171,0.0,3.39,ego,,,,,,,
+6682,False,True,clear,171,0.0,3.32,ego,,,,,,,
+6683,False,True,clear,171,0.0,3.32,ego,,,,,,,
+6684,False,True,clear,171,0.0,3.32,ego,,,,,,,
+6685,False,True,clear,171,0.0,3.31,ego,,,,,,,
+6686,False,True,clear,171,0.0,3.29,ego,,,,,,,
+6687,False,True,clear,171,0.0,3.26,ego,,,,,,,
+6688,False,True,clear,171,0.0,3.15,ego,,,,,,,
+6689,False,True,clear,171,0.0,3.15,ego,,,,,,,
+6690,False,True,clear,171,0.0,3.15,ego,,,,,,,
+6691,False,True,clear,171,1.0,3.09,ego,,,,,,,
+6692,False,True,clear,171,2.0,3.03,ego,,,,,,,
+6693,False,True,clear,171,2.0,3.03,ego,,,,,,,
+6694,False,True,clear,171,2.0,3.01,ego,,,,,,,
+6695,False,True,clear,171,2.0,2.96,ego,,,,,,,
+6696,False,True,clear,171,2.0,2.91,ego,,,,,,,
+6697,False,True,clear,171,2.0,2.82,ego,,,,,,,
+6698,False,True,clear,171,2.0,2.75,ego,,,,,,,
+6699,False,True,clear,171,2.0,2.75,ego,,,,,,,
+6700,False,True,clear,171,3.0,2.69,ego,,,,,,,
+6701,False,True,clear,171,4.01,2.62,ego,,,,,,,
+6702,False,True,clear,171,4.01,2.62,ego,,,,,,,
+6703,False,True,clear,171,4.01,2.46,ego,,,,,,,
+6704,False,True,clear,171,4.01,2.46,ego,,,,,,,
+6705,False,True,clear,171,4.01,2.46,ego,,,,,,,
+6706,False,True,clear,171,4.01,2.38,ego,,,,,,,
+6707,False,True,clear,171,4.01,2.29,ego,,,,,,,
+6708,False,True,clear,171,4.01,2.29,ego,,,,,,,
+6709,False,True,clear,171,5.01,2.2,ego,,,,,,,
+6710,False,True,clear,171,6.0,2.12,ego,,,,,,,
+6711,False,True,clear,171,6.0,2.12,ego,,,,,,,
+6712,False,True,clear,171,6.0,2.01,ego,,,,,,,
+6713,False,True,clear,171,6.0,1.9,ego,,,,,,,
+6714,False,True,clear,171,6.0,1.9,ego,,,,,,,
+6715,False,True,clear,171,6.0,1.8,ego,,,,,,,
+6716,False,True,clear,171,6.0,1.7,ego,,,,,,,
+6717,False,True,clear,171,6.0,1.7,ego,,,,,,,
+6718,False,True,clear,171,6.0,1.6,ego,,,,,,,
+6719,False,True,clear,171,6.0,1.5,ego,,,,,,,
+6720,False,True,clear,171,6.0,1.5,ego,,,,,,,
+6721,False,True,clear,171,7.0,1.38,ego,,,,,,,
+6722,False,True,clear,171,8.0,1.27,ego,,,,,,,
+6723,False,True,clear,171,8.0,1.27,ego,,,,,,,
+6724,False,True,clear,171,8.0,1.22,ego,,,,,,,
+6725,False,True,clear,171,8.0,1.12,ego,,,,,,,
+6726,False,True,clear,171,8.0,1.0,ego,,,,,,,
+6727,False,True,clear,171,8.0,0.85,ego,,,,,,,
+6728,False,True,clear,171,8.0,0.75,ego,,,,,,,
+6729,False,True,clear,171,8.0,0.75,ego,,,,,,,
+6730,False,True,clear,171,8.0,0.63,ego,,,,,,,
+6731,False,True,clear,171,8.0,0.52,ego,,,,,,,
+6732,False,True,clear,171,8.0,0.52,ego,,,,,,,
+6733,False,True,clear,171,8.0,0.24,ego,,,,,,,
+6734,False,True,clear,171,8.0,0.24,ego,,,,,,,
+6735,False,True,clear,171,8.0,0.24,ego,,,,,,,
+6736,False,True,clear,171,8.0,0.12,ego,,,,,,,
+6737,False,True,clear,171,8.0,0.0,ego,,,,,,,

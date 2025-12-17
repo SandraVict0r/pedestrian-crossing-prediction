@@ -238,9 +238,3 @@ python visualize_annpt.py
 * Les chemins Windows (`E:\...`) doivent être adaptés à votre machine.
 * Le framerate **5 FPS** est une hypothèse clé pour le calcul des vitesses.
 
----
-
-Si tu veux, je peux maintenant :
-
-* t’écrire la **phrase parfaite de méthode** pour la thèse (section *Real-world validation on LOKI*),
-* ou te générer une **table récapitulative des variantes** (pour un papier IEEE / HRI).
