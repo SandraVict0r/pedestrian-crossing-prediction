@@ -1,2 +1,2 @@
-model/data_visualization/.env
+*.env
 *.log
